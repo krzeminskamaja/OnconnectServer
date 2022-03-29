@@ -1,0 +1,19 @@
+{
+  "dataServiceGeneratorVersion": "0.12.2",
+  "appInfo": {
+    "name": "OnconnectBackend",
+    "description": "",
+    "version": "ca1g6ica",
+    "id": "cl19mpdf780265701s6yzdhu185",
+    "url": "https://app.amplication.com/cl19mpdf780265701s6yzdhu185",
+    "settings": {
+      "dbHost": "localhost",
+      "dbName": "",
+      "dbPassword": "admin",
+      "dbPort": 5432,
+      "dbUser": "admin",
+      "appId": "cl19mpdf780265701s6yzdhu185",
+      "authProvider": "Jwt"
+    }
+  }
+}
