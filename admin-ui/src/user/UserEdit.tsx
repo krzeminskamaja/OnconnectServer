@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { CurrentSourceTitle } from "../currentSource/CurrentSourceTitle";
+import { KeywordTitle } from "../keyword/KeywordTitle";
 import { PastSourceTitle } from "../pastSource/PastSourceTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
@@ -18,8 +19,9 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <div />
         <ReferenceArrayInput
-          source="currentsource"
+          source="currentSourceID"
           reference="CurrentSource"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
@@ -27,10 +29,18 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
           <SelectArrayInput optionText={CurrentSourceTitle} />
         </ReferenceArrayInput>
         <TextInput label="First Name" source="firstName" />
+        <ReferenceArrayInput
+          source="intersts"
+          reference="Keyword"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={KeywordTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Last Name" source="lastName" />
         <PasswordInput label="Password" source="password" />
         <ReferenceArrayInput
-          source="pastsource"
+          source="pastSourceId"
           reference="PastSource"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}

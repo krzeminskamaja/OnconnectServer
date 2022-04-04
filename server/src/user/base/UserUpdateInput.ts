@@ -11,12 +11,25 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { IsJSON, IsOptional, ValidateNested, IsString } from "class-validator";
+import { GraphQLJSONObject } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
 import { CurrentSourceUpdateManyWithoutUsersInput } from "./CurrentSourceUpdateManyWithoutUsersInput";
-import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { KeywordUpdateManyWithoutUsersInput } from "./KeywordUpdateManyWithoutUsersInput";
 import { PastSourceUpdateManyWithoutUsersInput } from "./PastSourceUpdateManyWithoutUsersInput";
 @InputType()
 class UserUpdateInput {
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSON()
+  @IsOptional()
+  @Field(() => GraphQLJSONObject, {
+    nullable: true,
+  })
+  calendar?: InputJsonValue;
+
   @ApiProperty({
     required: false,
     type: () => CurrentSourceUpdateManyWithoutUsersInput,
@@ -39,6 +52,18 @@ class UserUpdateInput {
     nullable: true,
   })
   firstName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => KeywordUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => KeywordUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => KeywordUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  intersts?: KeywordUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

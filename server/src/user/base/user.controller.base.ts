@@ -30,6 +30,9 @@ import { User } from "./User";
 import { CurrentSourceFindManyArgs } from "../../currentSource/base/CurrentSourceFindManyArgs";
 import { CurrentSource } from "../../currentSource/base/CurrentSource";
 import { CurrentSourceWhereUniqueInput } from "../../currentSource/base/CurrentSourceWhereUniqueInput";
+import { KeywordFindManyArgs } from "../../keyword/base/KeywordFindManyArgs";
+import { Keyword } from "../../keyword/base/Keyword";
+import { KeywordWhereUniqueInput } from "../../keyword/base/KeywordWhereUniqueInput";
 import { PastSourceFindManyArgs } from "../../pastSource/base/PastSourceFindManyArgs";
 import { PastSource } from "../../pastSource/base/PastSource";
 import { PastSourceWhereUniqueInput } from "../../pastSource/base/PastSourceWhereUniqueInput";
@@ -78,6 +81,7 @@ export class UserControllerBase {
     return await this.service.create({
       data: data,
       select: {
+        calendar: true,
         createdAt: true,
         firstName: true,
         id: true,
@@ -120,6 +124,7 @@ export class UserControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
+        calendar: true,
         createdAt: true,
         firstName: true,
         id: true,
@@ -161,6 +166,7 @@ export class UserControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        calendar: true,
         createdAt: true,
         firstName: true,
         id: true,
@@ -223,6 +229,7 @@ export class UserControllerBase {
         where: params,
         data: data,
         select: {
+          calendar: true,
           createdAt: true,
           firstName: true,
           id: true,
@@ -265,6 +272,7 @@ export class UserControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          calendar: true,
           createdAt: true,
           firstName: true,
           id: true,
@@ -435,6 +443,190 @@ export class UserControllerBase {
   ): Promise<void> {
     const data = {
       currentSourceID: {
+        disconnect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "User",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"User"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Get("/:id/intersts")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  @ApiNestedQuery(KeywordFindManyArgs)
+  async findManyIntersts(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput,
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<Keyword[]> {
+    const query = plainToClass(KeywordFindManyArgs, request.query);
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Keyword",
+    });
+    const results = await this.service.findIntersts(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        keyIndex: true,
+        name: true,
+
+        parentKeyword: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results.map((result) => permission.filter(result));
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Post("/:id/intersts")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async createIntersts(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: UserWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      intersts: {
+        connect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "User",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"User"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Patch("/:id/intersts")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async updateIntersts(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: KeywordWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      intersts: {
+        set: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "User",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"User"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Delete("/:id/intersts")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async deleteIntersts(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: UserWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      intersts: {
         disconnect: body,
       },
     };
