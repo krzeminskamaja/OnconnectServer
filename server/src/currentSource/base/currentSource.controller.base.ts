@@ -285,6 +285,7 @@ export class CurrentSourceControllerBase {
     const results = await this.service.findUserId(params.id, {
       ...query,
       select: {
+        calendar: true,
         createdAt: true,
         firstName: true,
         id: true,

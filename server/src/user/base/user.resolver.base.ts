@@ -27,6 +27,8 @@ import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { User } from "./User";
 import { CurrentSourceFindManyArgs } from "../../currentSource/base/CurrentSourceFindManyArgs";
 import { CurrentSource } from "../../currentSource/base/CurrentSource";
+import { KeywordFindManyArgs } from "../../keyword/base/KeywordFindManyArgs";
+import { Keyword } from "../../keyword/base/Keyword";
 import { PastSourceFindManyArgs } from "../../pastSource/base/PastSourceFindManyArgs";
 import { PastSource } from "../../pastSource/base/PastSource";
 import { UserService } from "../user.service";
@@ -224,6 +226,32 @@ export class UserResolverBase {
       resource: "CurrentSource",
     });
     const results = await this.service.findCurrentSourceId(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [Keyword])
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  async intersts(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: KeywordFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Keyword[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Keyword",
+    });
+    const results = await this.service.findIntersts(parent.id, args);
 
     if (!results) {
       return [];

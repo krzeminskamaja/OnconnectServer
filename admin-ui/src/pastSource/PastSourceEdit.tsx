@@ -17,7 +17,7 @@ export const PastSourceEdit = (props: EditProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="SourceID" source="sourceId" />
         <ReferenceArrayInput
-          source="user"
+          source="userID"
           reference="User"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}

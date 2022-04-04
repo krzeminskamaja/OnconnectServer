@@ -11,14 +11,27 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CurrentSourceListRelationFilter } from "../../currentSource/base/CurrentSourceListRelationFilter";
-import { ValidateNested, IsOptional } from "class-validator";
+import { JsonFilter } from "../../util/JsonFilter";
 import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
+import { CurrentSourceListRelationFilter } from "../../currentSource/base/CurrentSourceListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { KeywordListRelationFilter } from "../../keyword/base/KeywordListRelationFilter";
 import { PastSourceListRelationFilter } from "../../pastSource/base/PastSourceListRelationFilter";
 @InputType()
 class UserWhereInput {
+  @ApiProperty({
+    required: false,
+    type: JsonFilter,
+  })
+  @Type(() => JsonFilter)
+  @IsOptional()
+  @Field(() => JsonFilter, {
+    nullable: true,
+  })
+  calendar?: JsonFilter;
+
   @ApiProperty({
     required: false,
     type: () => CurrentSourceListRelationFilter,
@@ -52,6 +65,18 @@ class UserWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => KeywordListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => KeywordListRelationFilter)
+  @IsOptional()
+  @Field(() => KeywordListRelationFilter, {
+    nullable: true,
+  })
+  intersts?: KeywordListRelationFilter;
 
   @ApiProperty({
     required: false,

@@ -8,10 +8,12 @@ generator client {
 }
 
 model User {
+  calendar        Json?
   createdAt       DateTime        @default(now())
   currentSourceID CurrentSource[]
   firstName       String?
   id              String          @id @default(cuid())
+  intersts        Keyword[]
   lastName        String?
   password        String
   pastSourceId    PastSource[]
@@ -47,4 +49,26 @@ model SourceDetail {
   title           String?
   uniqueSourceKey String   @unique
   updatedAt       DateTime @updatedAt
+}
+
+model Resource {
+  abstract   String
+  authorS    Json
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  keywords   Keyword[]
+  link       String
+  relaseDate DateTime
+  title      String
+  updatedAt  DateTime  @updatedAt
+}
+
+model Keyword {
+  createdAt  DateTime   @default(now())
+  id         String     @id @default(cuid())
+  interested User[]
+  keyIndex   Int
+  name       String
+  resources  Resource[]
+  updatedAt  DateTime   @updatedAt
 }
