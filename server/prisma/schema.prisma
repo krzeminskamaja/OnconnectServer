@@ -48,3 +48,21 @@ model SourceDetail {
   uniqueSourceKey String   @unique
   updatedAt       DateTime @updatedAt
 }
+
+model Resource {
+  authorS    String?
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  keywords   Keyword[]
+  relaseDate DateTime?
+  updatedAt  DateTime  @updatedAt
+}
+
+model Keyword {
+  createdAt DateTime   @default(now())
+  id        String     @id @default(cuid())
+  keyIndex  Int?
+  name      String?
+  resource  Resource[]
+  updatedAt DateTime   @updatedAt
+}
