@@ -11,12 +11,31 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, ValidateNested, IsOptional, IsString } from "class-validator";
+import {
+  IsJSON,
+  IsOptional,
+  IsDate,
+  IsString,
+  ValidateNested,
+} from "class-validator";
+import { GraphQLJSONObject } from "graphql-type-json";
+import { JsonValue } from "type-fest";
 import { Type } from "class-transformer";
-import { CurrentSource } from "../../currentSource/base/CurrentSource";
-import { PastSource } from "../../pastSource/base/PastSource";
+import { ResourceHistory } from "../../resourceHistory/base/ResourceHistory";
+import { Keyword } from "../../keyword/base/Keyword";
+import { ResourceSuggestion } from "../../resourceSuggestion/base/ResourceSuggestion";
 @ObjectType()
 class User {
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSON()
+  @IsOptional()
+  @Field(() => GraphQLJSONObject, {
+    nullable: true,
+  })
+  calendar!: JsonValue;
+
   @ApiProperty({
     required: true,
   })
@@ -24,15 +43,6 @@ class User {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: () => [CurrentSource],
-  })
-  @ValidateNested()
-  @Type(() => CurrentSource)
-  @IsOptional()
-  currentSourceID?: Array<CurrentSource>;
 
   @ApiProperty({
     required: false,
@@ -46,12 +56,30 @@ class User {
   firstName!: string | null;
 
   @ApiProperty({
+    required: false,
+    type: () => [ResourceHistory],
+  })
+  @ValidateNested()
+  @Type(() => ResourceHistory)
+  @IsOptional()
+  historyID?: Array<ResourceHistory>;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Keyword],
+  })
+  @ValidateNested()
+  @Type(() => Keyword)
+  @IsOptional()
+  interestID?: Array<Keyword>;
 
   @ApiProperty({
     required: false,
@@ -63,15 +91,6 @@ class User {
     nullable: true,
   })
   lastName!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PastSource],
-  })
-  @ValidateNested()
-  @Type(() => PastSource)
-  @IsOptional()
-  pastSourceId?: Array<PastSource>;
 
   @ApiProperty({
     required: true,
@@ -92,6 +111,15 @@ class User {
   roles!: Array<string>;
 
   @ApiProperty({
+    required: false,
+    type: () => [ResourceSuggestion],
+  })
+  @ValidateNested()
+  @Type(() => ResourceSuggestion)
+  @IsOptional()
+  suggestionID?: Array<ResourceSuggestion>;
+
+  @ApiProperty({
     required: true,
   })
   @IsDate()
@@ -106,13 +134,5 @@ class User {
   @IsString()
   @Field(() => String)
   username!: string;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @Field(() => String)
-  workplace!: string;
 }
 export { User };

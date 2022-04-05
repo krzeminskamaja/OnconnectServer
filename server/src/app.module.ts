@@ -1,8 +1,9 @@
 import { Module } from "@nestjs/common";
 import { UserModule } from "./user/user.module";
-import { PastSourceModule } from "./pastSource/pastSource.module";
-import { CurrentSourceModule } from "./currentSource/currentSource.module";
-import { SourceDetailModule } from "./sourceDetail/sourceDetail.module";
+import { ResourceHistoryModule } from "./resourceHistory/resourceHistory.module";
+import { ResourceSuggestionModule } from "./resourceSuggestion/resourceSuggestion.module";
+import { ResourceModule } from "./resource/resource.module";
+import { KeywordModule } from "./keyword/keyword.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
 import { HealthModule } from "./health/health.module";
@@ -17,9 +18,10 @@ import { GraphQLModule } from "@nestjs/graphql";
   controllers: [],
   imports: [
     UserModule,
-    PastSourceModule,
-    CurrentSourceModule,
-    SourceDetailModule,
+    ResourceHistoryModule,
+    ResourceSuggestionModule,
+    ResourceModule,
+    KeywordModule,
     ACLModule,
     AuthModule,
     HealthModule,

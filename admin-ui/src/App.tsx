@@ -9,18 +9,22 @@ import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
 import { UserShow } from "./user/UserShow";
-import { PastSourceList } from "./pastSource/PastSourceList";
-import { PastSourceCreate } from "./pastSource/PastSourceCreate";
-import { PastSourceEdit } from "./pastSource/PastSourceEdit";
-import { PastSourceShow } from "./pastSource/PastSourceShow";
-import { CurrentSourceList } from "./currentSource/CurrentSourceList";
-import { CurrentSourceCreate } from "./currentSource/CurrentSourceCreate";
-import { CurrentSourceEdit } from "./currentSource/CurrentSourceEdit";
-import { CurrentSourceShow } from "./currentSource/CurrentSourceShow";
-import { SourceDetailList } from "./sourceDetail/SourceDetailList";
-import { SourceDetailCreate } from "./sourceDetail/SourceDetailCreate";
-import { SourceDetailEdit } from "./sourceDetail/SourceDetailEdit";
-import { SourceDetailShow } from "./sourceDetail/SourceDetailShow";
+import { ResourceHistoryList } from "./resourceHistory/ResourceHistoryList";
+import { ResourceHistoryCreate } from "./resourceHistory/ResourceHistoryCreate";
+import { ResourceHistoryEdit } from "./resourceHistory/ResourceHistoryEdit";
+import { ResourceHistoryShow } from "./resourceHistory/ResourceHistoryShow";
+import { ResourceSuggestionList } from "./resourceSuggestion/ResourceSuggestionList";
+import { ResourceSuggestionCreate } from "./resourceSuggestion/ResourceSuggestionCreate";
+import { ResourceSuggestionEdit } from "./resourceSuggestion/ResourceSuggestionEdit";
+import { ResourceSuggestionShow } from "./resourceSuggestion/ResourceSuggestionShow";
+import { ResourceList } from "./resource/ResourceList";
+import { ResourceCreate } from "./resource/ResourceCreate";
+import { ResourceEdit } from "./resource/ResourceEdit";
+import { ResourceShow } from "./resource/ResourceShow";
+import { KeywordList } from "./keyword/KeywordList";
+import { KeywordCreate } from "./keyword/KeywordCreate";
+import { KeywordEdit } from "./keyword/KeywordEdit";
+import { KeywordShow } from "./keyword/KeywordShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -55,25 +59,32 @@ const App = (): React.ReactElement => {
           show={UserShow}
         />
         <Resource
-          name="PastSource"
-          list={PastSourceList}
-          edit={PastSourceEdit}
-          create={PastSourceCreate}
-          show={PastSourceShow}
+          name="ResourceHistory"
+          list={ResourceHistoryList}
+          edit={ResourceHistoryEdit}
+          create={ResourceHistoryCreate}
+          show={ResourceHistoryShow}
         />
         <Resource
-          name="CurrentSource"
-          list={CurrentSourceList}
-          edit={CurrentSourceEdit}
-          create={CurrentSourceCreate}
-          show={CurrentSourceShow}
+          name="ResourceSuggestion"
+          list={ResourceSuggestionList}
+          edit={ResourceSuggestionEdit}
+          create={ResourceSuggestionCreate}
+          show={ResourceSuggestionShow}
         />
         <Resource
-          name="SourceDetail"
-          list={SourceDetailList}
-          edit={SourceDetailEdit}
-          create={SourceDetailCreate}
-          show={SourceDetailShow}
+          name="Resource"
+          list={ResourceList}
+          edit={ResourceEdit}
+          create={ResourceCreate}
+          show={ResourceShow}
+        />
+        <Resource
+          name="Keyword"
+          list={KeywordList}
+          edit={KeywordEdit}
+          create={KeywordCreate}
+          show={KeywordShow}
         />
       </Admin>
     </div>
