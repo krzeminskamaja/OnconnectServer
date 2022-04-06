@@ -10,7 +10,13 @@ https://docs.amplication.com/docs/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, User, CurrentSource, PastSource } from "@prisma/client";
+import {
+  Prisma,
+  User,
+  ResourceHistory,
+  Keyword,
+  ResourceSuggestion,
+} from "@prisma/client";
 import { PasswordService } from "../../auth/password.service";
 import { transformStringFieldUpdateInput } from "../../prisma.util";
 
@@ -72,25 +78,36 @@ export class UserServiceBase {
     return this.prisma.user.delete(args);
   }
 
-  async findCurrentSourceId(
+  async findHistoryId(
     parentId: string,
-    args: Prisma.CurrentSourceFindManyArgs
-  ): Promise<CurrentSource[]> {
+    args: Prisma.ResourceHistoryFindManyArgs
+  ): Promise<ResourceHistory[]> {
     return this.prisma.user
       .findUnique({
         where: { id: parentId },
       })
-      .currentSourceID(args);
+      .historyID(args);
   }
 
-  async findPastSourceId(
+  async findInterestId(
     parentId: string,
-    args: Prisma.PastSourceFindManyArgs
-  ): Promise<PastSource[]> {
+    args: Prisma.KeywordFindManyArgs
+  ): Promise<Keyword[]> {
     return this.prisma.user
       .findUnique({
         where: { id: parentId },
       })
-      .pastSourceId(args);
+      .interestID(args);
+  }
+
+  async findSuggestionId(
+    parentId: string,
+    args: Prisma.ResourceSuggestionFindManyArgs
+  ): Promise<ResourceSuggestion[]> {
+    return this.prisma.user
+      .findUnique({
+        where: { id: parentId },
+      })
+      .suggestionID(args);
   }
 }

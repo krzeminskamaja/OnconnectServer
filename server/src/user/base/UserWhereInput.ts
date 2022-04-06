@@ -11,25 +11,26 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CurrentSourceListRelationFilter } from "../../currentSource/base/CurrentSourceListRelationFilter";
-import { ValidateNested, IsOptional } from "class-validator";
+import { JsonFilter } from "../../util/JsonFilter";
 import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { ResourceHistoryListRelationFilter } from "../../resourceHistory/base/ResourceHistoryListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { PastSourceListRelationFilter } from "../../pastSource/base/PastSourceListRelationFilter";
+import { KeywordListRelationFilter } from "../../keyword/base/KeywordListRelationFilter";
+import { ResourceSuggestionListRelationFilter } from "../../resourceSuggestion/base/ResourceSuggestionListRelationFilter";
 @InputType()
 class UserWhereInput {
   @ApiProperty({
     required: false,
-    type: () => CurrentSourceListRelationFilter,
+    type: JsonFilter,
   })
-  @ValidateNested()
-  @Type(() => CurrentSourceListRelationFilter)
+  @Type(() => JsonFilter)
   @IsOptional()
-  @Field(() => CurrentSourceListRelationFilter, {
+  @Field(() => JsonFilter, {
     nullable: true,
   })
-  currentSourceID?: CurrentSourceListRelationFilter;
+  calendar?: JsonFilter;
 
   @ApiProperty({
     required: false,
@@ -44,6 +45,18 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => ResourceHistoryListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ResourceHistoryListRelationFilter)
+  @IsOptional()
+  @Field(() => ResourceHistoryListRelationFilter, {
+    nullable: true,
+  })
+  historyID?: ResourceHistoryListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -52,6 +65,18 @@ class UserWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => KeywordListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => KeywordListRelationFilter)
+  @IsOptional()
+  @Field(() => KeywordListRelationFilter, {
+    nullable: true,
+  })
+  interestID?: KeywordListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -66,18 +91,6 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => PastSourceListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => PastSourceListRelationFilter)
-  @IsOptional()
-  @Field(() => PastSourceListRelationFilter, {
-    nullable: true,
-  })
-  pastSourceId?: PastSourceListRelationFilter;
-
-  @ApiProperty({
-    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -89,14 +102,15 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: () => ResourceSuggestionListRelationFilter,
   })
-  @Type(() => StringFilter)
+  @ValidateNested()
+  @Type(() => ResourceSuggestionListRelationFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => ResourceSuggestionListRelationFilter, {
     nullable: true,
   })
-  username?: StringFilter;
+  suggestionID?: ResourceSuggestionListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -107,6 +121,6 @@ class UserWhereInput {
   @Field(() => StringFilter, {
     nullable: true,
   })
-  workplace?: StringFilter;
+  username?: StringFilter;
 }
 export { UserWhereInput };

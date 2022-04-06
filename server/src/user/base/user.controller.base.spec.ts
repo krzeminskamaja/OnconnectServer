@@ -20,7 +20,6 @@ const CREATE_INPUT = {
   roles: ["exampleRoles"],
   updatedAt: new Date(),
   username: "exampleUsername",
-  workplace: "exampleWorkplace",
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
@@ -32,7 +31,6 @@ const CREATE_RESULT = {
   roles: ["exampleRoles"],
   updatedAt: new Date(),
   username: "exampleUsername",
-  workplace: "exampleWorkplace",
 };
 const FIND_MANY_RESULT = [
   {
@@ -45,7 +43,6 @@ const FIND_MANY_RESULT = [
     roles: ["exampleRoles"],
     updatedAt: new Date(),
     username: "exampleUsername",
-    workplace: "exampleWorkplace",
   },
 ];
 const FIND_ONE_RESULT = {
@@ -58,7 +55,6 @@ const FIND_ONE_RESULT = {
   roles: ["exampleRoles"],
   updatedAt: new Date(),
   username: "exampleUsername",
-  workplace: "exampleWorkplace",
 };
 
 const service = {

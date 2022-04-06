@@ -11,23 +11,24 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CurrentSourceCreateNestedManyWithoutUsersInput } from "./CurrentSourceCreateNestedManyWithoutUsersInput";
-import { ValidateNested, IsOptional, IsString } from "class-validator";
+import { IsJSON, IsOptional, IsString, ValidateNested } from "class-validator";
+import { GraphQLJSONObject } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
+import { ResourceHistoryCreateNestedManyWithoutUsersInput } from "./ResourceHistoryCreateNestedManyWithoutUsersInput";
 import { Type } from "class-transformer";
-import { PastSourceCreateNestedManyWithoutUsersInput } from "./PastSourceCreateNestedManyWithoutUsersInput";
+import { KeywordCreateNestedManyWithoutUsersInput } from "./KeywordCreateNestedManyWithoutUsersInput";
+import { ResourceSuggestionCreateNestedManyWithoutUsersInput } from "./ResourceSuggestionCreateNestedManyWithoutUsersInput";
 @InputType()
 class UserCreateInput {
   @ApiProperty({
     required: false,
-    type: () => CurrentSourceCreateNestedManyWithoutUsersInput,
   })
-  @ValidateNested()
-  @Type(() => CurrentSourceCreateNestedManyWithoutUsersInput)
+  @IsJSON()
   @IsOptional()
-  @Field(() => CurrentSourceCreateNestedManyWithoutUsersInput, {
+  @Field(() => GraphQLJSONObject, {
     nullable: true,
   })
-  currentSourceID?: CurrentSourceCreateNestedManyWithoutUsersInput;
+  calendar?: InputJsonValue;
 
   @ApiProperty({
     required: false,
@@ -39,6 +40,30 @@ class UserCreateInput {
     nullable: true,
   })
   firstName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ResourceHistoryCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => ResourceHistoryCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => ResourceHistoryCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  historyID?: ResourceHistoryCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => KeywordCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => KeywordCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => KeywordCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  interestID?: KeywordCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,
@@ -60,18 +85,6 @@ class UserCreateInput {
   password!: string;
 
   @ApiProperty({
-    required: false,
-    type: () => PastSourceCreateNestedManyWithoutUsersInput,
-  })
-  @ValidateNested()
-  @Type(() => PastSourceCreateNestedManyWithoutUsersInput)
-  @IsOptional()
-  @Field(() => PastSourceCreateNestedManyWithoutUsersInput, {
-    nullable: true,
-  })
-  pastSourceId?: PastSourceCreateNestedManyWithoutUsersInput;
-
-  @ApiProperty({
     required: true,
     type: String,
   })
@@ -90,12 +103,16 @@ class UserCreateInput {
   roles!: Array<string>;
 
   @ApiProperty({
-    required: true,
-    type: String,
+    required: false,
+    type: () => ResourceSuggestionCreateNestedManyWithoutUsersInput,
   })
-  @IsString()
-  @Field(() => String)
-  username!: string;
+  @ValidateNested()
+  @Type(() => ResourceSuggestionCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => ResourceSuggestionCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  suggestionID?: ResourceSuggestionCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: true,
@@ -103,6 +120,6 @@ class UserCreateInput {
   })
   @IsString()
   @Field(() => String)
-  workplace!: string;
+  username!: string;
 }
 export { UserCreateInput };
