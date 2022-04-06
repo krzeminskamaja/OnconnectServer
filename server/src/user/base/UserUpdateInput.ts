@@ -11,23 +11,24 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CurrentSourceUpdateManyWithoutUsersInput } from "./CurrentSourceUpdateManyWithoutUsersInput";
-import { ValidateNested, IsOptional, IsString } from "class-validator";
+import { IsJSON, IsOptional, IsString, ValidateNested } from "class-validator";
+import { GraphQLJSONObject } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
+import { ResourceHistoryUpdateManyWithoutUsersInput } from "./ResourceHistoryUpdateManyWithoutUsersInput";
 import { Type } from "class-transformer";
-import { PastSourceUpdateManyWithoutUsersInput } from "./PastSourceUpdateManyWithoutUsersInput";
+import { KeywordUpdateManyWithoutUsersInput } from "./KeywordUpdateManyWithoutUsersInput";
+import { ResourceSuggestionUpdateManyWithoutUsersInput } from "./ResourceSuggestionUpdateManyWithoutUsersInput";
 @InputType()
 class UserUpdateInput {
   @ApiProperty({
     required: false,
-    type: () => CurrentSourceUpdateManyWithoutUsersInput,
   })
-  @ValidateNested()
-  @Type(() => CurrentSourceUpdateManyWithoutUsersInput)
+  @IsJSON()
   @IsOptional()
-  @Field(() => CurrentSourceUpdateManyWithoutUsersInput, {
+  @Field(() => GraphQLJSONObject, {
     nullable: true,
   })
-  currentSourceID?: CurrentSourceUpdateManyWithoutUsersInput;
+  calendar?: InputJsonValue;
 
   @ApiProperty({
     required: false,
@@ -39,6 +40,30 @@ class UserUpdateInput {
     nullable: true,
   })
   firstName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ResourceHistoryUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => ResourceHistoryUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => ResourceHistoryUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  historyID?: ResourceHistoryUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => KeywordUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => KeywordUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => KeywordUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  interestID?: KeywordUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,
@@ -61,18 +86,6 @@ class UserUpdateInput {
     nullable: true,
   })
   password?: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => PastSourceUpdateManyWithoutUsersInput,
-  })
-  @ValidateNested()
-  @Type(() => PastSourceUpdateManyWithoutUsersInput)
-  @IsOptional()
-  @Field(() => PastSourceUpdateManyWithoutUsersInput, {
-    nullable: true,
-  })
-  pastSourceId?: PastSourceUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,
@@ -100,14 +113,15 @@ class UserUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => ResourceSuggestionUpdateManyWithoutUsersInput,
   })
-  @IsString()
+  @ValidateNested()
+  @Type(() => ResourceSuggestionUpdateManyWithoutUsersInput)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => ResourceSuggestionUpdateManyWithoutUsersInput, {
     nullable: true,
   })
-  username?: string;
+  suggestionID?: ResourceSuggestionUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,
@@ -118,6 +132,6 @@ class UserUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  workplace?: string;
+  username?: string;
 }
 export { UserUpdateInput };

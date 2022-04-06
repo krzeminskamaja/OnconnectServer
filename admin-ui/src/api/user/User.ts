@@ -1,16 +1,19 @@
-import { CurrentSource } from "../currentSource/CurrentSource";
-import { PastSource } from "../pastSource/PastSource";
+import { JsonValue } from "type-fest";
+import { ResourceHistory } from "../resourceHistory/ResourceHistory";
+import { Keyword } from "../keyword/Keyword";
+import { ResourceSuggestion } from "../resourceSuggestion/ResourceSuggestion";
 
 export type User = {
+  calendar: JsonValue;
   createdAt: Date;
-  currentSourceID?: Array<CurrentSource>;
   firstName: string | null;
+  historyID?: Array<ResourceHistory>;
   id: string;
+  interestID?: Array<Keyword>;
   lastName: string | null;
-  pastSourceId?: Array<PastSource>;
   profession: string;
   roles: Array<string>;
+  suggestionID?: Array<ResourceSuggestion>;
   updatedAt: Date;
   username: string;
-  workplace: string;
 };

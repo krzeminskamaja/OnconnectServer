@@ -4,39 +4,41 @@ import {
   Create,
   SimpleForm,
   CreateProps,
+  TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
-  TextInput,
   PasswordInput,
 } from "react-admin";
 
-import { CurrentSourceTitle } from "../currentSource/CurrentSourceTitle";
-import { PastSourceTitle } from "../pastSource/PastSourceTitle";
+import { ResourceHistoryTitle } from "../resourceHistory/ResourceHistoryTitle";
+import { KeywordTitle } from "../keyword/KeywordTitle";
+import { ResourceSuggestionTitle } from "../resourceSuggestion/ResourceSuggestionTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
 export const UserCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <div />
+        <TextInput label="First Name" source="firstName" />
         <ReferenceArrayInput
-          source="currentsource"
-          reference="CurrentSource"
+          source="historyID"
+          reference="ResourceHistory"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={CurrentSourceTitle} />
+          <SelectArrayInput optionText={ResourceHistoryTitle} />
         </ReferenceArrayInput>
-        <TextInput label="First Name" source="firstName" />
+        <ReferenceArrayInput
+          source="interestID"
+          reference="Keyword"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={KeywordTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Last Name" source="lastName" />
         <PasswordInput label="Password" source="password" />
-        <ReferenceArrayInput
-          source="pastsource"
-          reference="PastSource"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={PastSourceTitle} />
-        </ReferenceArrayInput>
         <TextInput label="Profession" multiline source="profession" />
         <SelectArrayInput
           source="roles"
@@ -44,8 +46,15 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
+        <ReferenceArrayInput
+          source="suggestionID"
+          reference="ResourceSuggestion"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ResourceSuggestionTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Username" source="username" />
-        <TextInput label="Workplace" source="workplace" />
       </SimpleForm>
     </Create>
   );

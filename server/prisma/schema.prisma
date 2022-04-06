@@ -8,43 +8,70 @@ generator client {
 }
 
 model User {
-  createdAt       DateTime        @default(now())
-  currentSourceID CurrentSource[]
-  firstName       String?
-  id              String          @id @default(cuid())
-  lastName        String?
-  password        String
-  pastSourceId    PastSource[]
-  profession      String
-  roles           String[]
-  updatedAt       DateTime        @updatedAt
-  username        String          @unique
-  workplace       String
+  calendar     Json?
+  createdAt    DateTime             @default(now())
+  firstName    String?
+  historyID    ResourceHistory[]
+  id           String               @id @default(cuid())
+  interestID   Keyword[]
+  lastName     String?
+  password     String
+  profession   String
+  roles        String[]
+  suggestionID ResourceSuggestion[]
+  updatedAt    DateTime             @updatedAt
+  username     String               @unique
 }
 
-model PastSource {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  sourceId  String
-  updatedAt DateTime @updatedAt
-  userID    User[]
+model ResourceHistory {
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  readDate   DateTime?
+  sourceID   Resource  @relation(fields: [sourceIDId], references: [id])
+  sourceIDId String
+  updatedAt  DateTime  @updatedAt
+  userID     User?     @relation(fields: [userIDId], references: [id])
+  userIDId   String?
 }
 
-model CurrentSource {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  sourceId  String?
-  updatedAt DateTime @updatedAt
-  userId    User[]
+model ResourceSuggestion {
+  createdAt    DateTime  @default(now())
+  id           String    @id @default(cuid())
+  ResourceID   Resource? @relation(fields: [ResourceIDId], references: [id])
+  ResourceIDId String?
+  updatedAt    DateTime  @updatedAt
+  userID       User      @relation(fields: [userIDId], references: [id])
+  userIDId     String
 }
 
-model SourceDetail {
-  abstract        String?
-  author          String?
-  createdAt       DateTime @default(now())
-  id              String   @id @default(cuid())
-  keyword         String?
-  title           String?
-  uniqueSourceKey String   @unique
-  updatedAt       DateTime @updatedAt
+model Resource {
+  abstract     String
+  authorS      Json
+  createdAt    DateTime             @default(now())
+  historyID    ResourceHistory[]
+  id           String               @id @default(cuid())
+  keywordID    Keyword[]
+  link         String               @unique
+  relaseDate   DateTime
+  suggestionID ResourceSuggestion[]
+  title        String
+  updatedAt    DateTime             @updatedAt
+}
+
+model Keyword {
+  createdAt  DateTime   @default(now())
+  id         String     @id @default(cuid())
+  name       String
+  resourceID Resource[]
+  synonymID  Synonym[]
+  updatedAt  DateTime   @updatedAt
+  userID     User[]
+}
+
+model Synonym {
+  createdAt   DateTime @default(now())
+  id          String   @id @default(cuid())
+  keywordId   Keyword? @relation(fields: [keywordIdId], references: [id])
+  keywordIdId String?
+  updatedAt   DateTime @updatedAt
 }

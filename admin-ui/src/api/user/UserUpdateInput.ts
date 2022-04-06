@@ -1,14 +1,17 @@
-import { CurrentSourceUpdateManyWithoutUsersInput } from "./CurrentSourceUpdateManyWithoutUsersInput";
-import { PastSourceUpdateManyWithoutUsersInput } from "./PastSourceUpdateManyWithoutUsersInput";
+import { InputJsonValue } from "../../types";
+import { ResourceHistoryUpdateManyWithoutUsersInput } from "./ResourceHistoryUpdateManyWithoutUsersInput";
+import { KeywordUpdateManyWithoutUsersInput } from "./KeywordUpdateManyWithoutUsersInput";
+import { ResourceSuggestionUpdateManyWithoutUsersInput } from "./ResourceSuggestionUpdateManyWithoutUsersInput";
 
 export type UserUpdateInput = {
-  currentSourceID?: CurrentSourceUpdateManyWithoutUsersInput;
+  calendar?: InputJsonValue;
   firstName?: string | null;
+  historyID?: ResourceHistoryUpdateManyWithoutUsersInput;
+  interestID?: KeywordUpdateManyWithoutUsersInput;
   lastName?: string | null;
   password?: string;
-  pastSourceId?: PastSourceUpdateManyWithoutUsersInput;
   profession?: string;
   roles?: Array<string>;
+  suggestionID?: ResourceSuggestionUpdateManyWithoutUsersInput;
   username?: string;
-  workplace?: string;
 };

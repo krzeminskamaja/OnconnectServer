@@ -25,10 +25,12 @@ import { DeleteUserArgs } from "./DeleteUserArgs";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { User } from "./User";
-import { CurrentSourceFindManyArgs } from "../../currentSource/base/CurrentSourceFindManyArgs";
-import { CurrentSource } from "../../currentSource/base/CurrentSource";
-import { PastSourceFindManyArgs } from "../../pastSource/base/PastSourceFindManyArgs";
-import { PastSource } from "../../pastSource/base/PastSource";
+import { ResourceHistoryFindManyArgs } from "../../resourceHistory/base/ResourceHistoryFindManyArgs";
+import { ResourceHistory } from "../../resourceHistory/base/ResourceHistory";
+import { KeywordFindManyArgs } from "../../keyword/base/KeywordFindManyArgs";
+import { Keyword } from "../../keyword/base/Keyword";
+import { ResourceSuggestionFindManyArgs } from "../../resourceSuggestion/base/ResourceSuggestionFindManyArgs";
+import { ResourceSuggestion } from "../../resourceSuggestion/base/ResourceSuggestion";
 import { UserService } from "../user.service";
 
 @graphql.Resolver(() => User)
@@ -206,24 +208,24 @@ export class UserResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => [CurrentSource])
+  @graphql.ResolveField(() => [ResourceHistory])
   @nestAccessControl.UseRoles({
     resource: "User",
     action: "read",
     possession: "any",
   })
-  async currentSourceId(
+  async historyId(
     @graphql.Parent() parent: User,
-    @graphql.Args() args: CurrentSourceFindManyArgs,
+    @graphql.Args() args: ResourceHistoryFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<CurrentSource[]> {
+  ): Promise<ResourceHistory[]> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "CurrentSource",
+      resource: "ResourceHistory",
     });
-    const results = await this.service.findCurrentSourceId(parent.id, args);
+    const results = await this.service.findHistoryId(parent.id, args);
 
     if (!results) {
       return [];
@@ -232,24 +234,50 @@ export class UserResolverBase {
     return results.map((result) => permission.filter(result));
   }
 
-  @graphql.ResolveField(() => [PastSource])
+  @graphql.ResolveField(() => [Keyword])
   @nestAccessControl.UseRoles({
     resource: "User",
     action: "read",
     possession: "any",
   })
-  async pastSourceId(
+  async interestId(
     @graphql.Parent() parent: User,
-    @graphql.Args() args: PastSourceFindManyArgs,
+    @graphql.Args() args: KeywordFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<PastSource[]> {
+  ): Promise<Keyword[]> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "PastSource",
+      resource: "Keyword",
     });
-    const results = await this.service.findPastSourceId(parent.id, args);
+    const results = await this.service.findInterestId(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [ResourceSuggestion])
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  async suggestionId(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: ResourceSuggestionFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<ResourceSuggestion[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "ResourceSuggestion",
+    });
+    const results = await this.service.findSuggestionId(parent.id, args);
 
     if (!results) {
       return [];
