@@ -480,6 +480,7 @@ export class KeywordControllerBase {
           },
         },
 
+        name: true,
         updatedAt: true,
       },
     });

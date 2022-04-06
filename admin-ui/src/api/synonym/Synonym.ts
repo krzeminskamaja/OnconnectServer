@@ -3,6 +3,7 @@ import { Keyword } from "../keyword/Keyword";
 export type Synonym = {
   createdAt: Date;
   id: string;
-  keywordId?: Keyword | null;
+  keywordId?: Keyword;
+  name: string;
   updatedAt: Date;
 };

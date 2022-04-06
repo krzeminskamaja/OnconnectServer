@@ -135,11 +135,9 @@ export class SynonymResolverBase {
       data: {
         ...args.data,
 
-        keywordId: args.data.keywordId
-          ? {
-              connect: args.data.keywordId,
-            }
-          : undefined,
+        keywordId: {
+          connect: args.data.keywordId,
+        },
       },
     });
   }
@@ -182,11 +180,9 @@ export class SynonymResolverBase {
         data: {
           ...args.data,
 
-          keywordId: args.data.keywordId
-            ? {
-                connect: args.data.keywordId,
-              }
-            : undefined,
+          keywordId: {
+            connect: args.data.keywordId,
+          },
         },
       });
     } catch (error) {

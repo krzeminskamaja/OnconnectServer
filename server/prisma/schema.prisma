@@ -71,7 +71,8 @@ model Keyword {
 model Synonym {
   createdAt   DateTime @default(now())
   id          String   @id @default(cuid())
-  keywordId   Keyword? @relation(fields: [keywordIdId], references: [id])
-  keywordIdId String?
+  keywordId   Keyword  @relation(fields: [keywordIdId], references: [id])
+  keywordIdId String
+  name        String
   updatedAt   DateTime @updatedAt
 }

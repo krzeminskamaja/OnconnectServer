@@ -39,5 +39,16 @@ class SynonymWhereInput {
     nullable: true,
   })
   keywordId?: KeywordWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  name?: StringFilter;
 }
 export { SynonymWhereInput };

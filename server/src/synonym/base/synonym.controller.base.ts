@@ -73,11 +73,9 @@ export class SynonymControllerBase {
       data: {
         ...data,
 
-        keywordId: data.keywordId
-          ? {
-              connect: data.keywordId,
-            }
-          : undefined,
+        keywordId: {
+          connect: data.keywordId,
+        },
       },
       select: {
         createdAt: true,
@@ -89,6 +87,7 @@ export class SynonymControllerBase {
           },
         },
 
+        name: true,
         updatedAt: true,
       },
     });
@@ -132,6 +131,7 @@ export class SynonymControllerBase {
           },
         },
 
+        name: true,
         updatedAt: true,
       },
     });
@@ -174,6 +174,7 @@ export class SynonymControllerBase {
           },
         },
 
+        name: true,
         updatedAt: true,
       },
     });
@@ -229,11 +230,9 @@ export class SynonymControllerBase {
         data: {
           ...data,
 
-          keywordId: data.keywordId
-            ? {
-                connect: data.keywordId,
-              }
-            : undefined,
+          keywordId: {
+            connect: data.keywordId,
+          },
         },
         select: {
           createdAt: true,
@@ -245,6 +244,7 @@ export class SynonymControllerBase {
             },
           },
 
+          name: true,
           updatedAt: true,
         },
       });
@@ -288,6 +288,7 @@ export class SynonymControllerBase {
             },
           },
 
+          name: true,
           updatedAt: true,
         },
       });
