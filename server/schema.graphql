@@ -207,7 +207,7 @@ type ResourceHistory {
 input ResourceHistoryCreateInput {
   readDate: DateTime
   sourceID: ResourceWhereUniqueInput!
-  userID: UserWhereUniqueInput
+  userID: UserWhereUniqueInput!
 }
 
 input ResourceHistoryCreateNestedManyWithoutResourcesInput {
@@ -288,7 +288,7 @@ type ResourceSuggestion {
 }
 
 input ResourceSuggestionCreateInput {
-  ResourceID: ResourceWhereUniqueInput
+  ResourceID: ResourceWhereUniqueInput!
   userID: UserWhereUniqueInput!
 }
 
@@ -413,11 +413,13 @@ type Synonym {
   createdAt: DateTime!
   id: String!
   keywordId: Keyword
+  name: String!
   updatedAt: DateTime!
 }
 
 input SynonymCreateInput {
-  keywordId: KeywordWhereUniqueInput
+  keywordId: KeywordWhereUniqueInput!
+  name: String!
 }
 
 input SynonymCreateNestedManyWithoutKeywordsInput {
@@ -434,11 +436,13 @@ input SynonymOrderByInput {
   createdAt: SortOrder
   id: SortOrder
   keywordIdId: SortOrder
+  name: SortOrder
   updatedAt: SortOrder
 }
 
 input SynonymUpdateInput {
   keywordId: KeywordWhereUniqueInput
+  name: String
 }
 
 input SynonymUpdateManyWithoutKeywordsInput {
@@ -450,6 +454,7 @@ input SynonymUpdateManyWithoutKeywordsInput {
 input SynonymWhereInput {
   id: StringFilter
   keywordId: KeywordWhereUniqueInput
+  name: StringFilter
 }
 
 input SynonymWhereUniqueInput {
