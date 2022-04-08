@@ -30,17 +30,17 @@ model ResourceHistory {
   sourceID   Resource  @relation(fields: [sourceIDId], references: [id])
   sourceIDId String
   updatedAt  DateTime  @updatedAt
-  userID     User?     @relation(fields: [userIDId], references: [id])
-  userIDId   String?
+  userID     User      @relation(fields: [userIDId], references: [id])
+  userIDId   String
 }
 
 model ResourceSuggestion {
-  createdAt    DateTime  @default(now())
-  id           String    @id @default(cuid())
-  ResourceID   Resource? @relation(fields: [ResourceIDId], references: [id])
-  ResourceIDId String?
-  updatedAt    DateTime  @updatedAt
-  userID       User      @relation(fields: [userIDId], references: [id])
+  createdAt    DateTime @default(now())
+  id           String   @id @default(cuid())
+  ResourceID   Resource @relation(fields: [ResourceIDId], references: [id])
+  ResourceIDId String
+  updatedAt    DateTime @updatedAt
+  userID       User     @relation(fields: [userIDId], references: [id])
   userIDId     String
 }
 
@@ -61,7 +61,7 @@ model Resource {
 model Keyword {
   createdAt  DateTime   @default(now())
   id         String     @id @default(cuid())
-  name       String
+  name       String     @unique
   resourceID Resource[]
   synonymID  Synonym[]
   updatedAt  DateTime   @updatedAt
@@ -71,7 +71,8 @@ model Keyword {
 model Synonym {
   createdAt   DateTime @default(now())
   id          String   @id @default(cuid())
-  keywordId   Keyword? @relation(fields: [keywordIdId], references: [id])
-  keywordIdId String?
+  keywordId   Keyword  @relation(fields: [keywordIdId], references: [id])
+  keywordIdId String
+  name        String   @unique
   updatedAt   DateTime @updatedAt
 }

@@ -140,11 +140,9 @@ export class ResourceHistoryResolverBase {
           connect: args.data.sourceID,
         },
 
-        userID: args.data.userID
-          ? {
-              connect: args.data.userID,
-            }
-          : undefined,
+        userID: {
+          connect: args.data.userID,
+        },
       },
     });
   }
@@ -191,11 +189,9 @@ export class ResourceHistoryResolverBase {
             connect: args.data.sourceID,
           },
 
-          userID: args.data.userID
-            ? {
-                connect: args.data.userID,
-              }
-            : undefined,
+          userID: {
+            connect: args.data.userID,
+          },
         },
       });
     } catch (error) {

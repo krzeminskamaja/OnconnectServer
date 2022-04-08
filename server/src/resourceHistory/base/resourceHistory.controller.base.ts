@@ -77,11 +77,9 @@ export class ResourceHistoryControllerBase {
           connect: data.sourceID,
         },
 
-        userID: data.userID
-          ? {
-              connect: data.userID,
-            }
-          : undefined,
+        userID: {
+          connect: data.userID,
+        },
       },
       select: {
         createdAt: true,
@@ -258,11 +256,9 @@ export class ResourceHistoryControllerBase {
             connect: data.sourceID,
           },
 
-          userID: data.userID
-            ? {
-                connect: data.userID,
-              }
-            : undefined,
+          userID: {
+            connect: data.userID,
+          },
         },
         select: {
           createdAt: true,

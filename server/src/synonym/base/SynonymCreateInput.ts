@@ -12,20 +12,25 @@ https://docs.amplication.com/docs/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { KeywordWhereUniqueInput } from "../../keyword/base/KeywordWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import { ValidateNested, IsString } from "class-validator";
 import { Type } from "class-transformer";
 @InputType()
 class SynonymCreateInput {
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => KeywordWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => KeywordWhereUniqueInput)
-  @IsOptional()
-  @Field(() => KeywordWhereUniqueInput, {
-    nullable: true,
+  @Field(() => KeywordWhereUniqueInput)
+  keywordId!: KeywordWhereUniqueInput;
+
+  @ApiProperty({
+    required: true,
+    type: String,
   })
-  keywordId?: KeywordWhereUniqueInput | null;
+  @IsString()
+  @Field(() => String)
+  name!: string;
 }
 export { SynonymCreateInput };
