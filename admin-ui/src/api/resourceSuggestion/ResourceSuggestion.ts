@@ -4,7 +4,7 @@ import { User } from "../user/User";
 export type ResourceSuggestion = {
   createdAt: Date;
   id: string;
-  ResourceID?: Resource | null;
+  ResourceID?: Resource;
   updatedAt: Date;
   userID?: User;
 };

@@ -29,6 +29,7 @@ export const SynonymList = (props: ListProps): React.ReactElement => {
         >
           <TextField source={KEYWORD_TITLE_FIELD} />
         </ReferenceField>
+        <TextField label="Name" source="name" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

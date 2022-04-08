@@ -5,6 +5,7 @@ import {
   EditProps,
   ReferenceInput,
   SelectInput,
+  TextInput,
 } from "react-admin";
 import { KeywordTitle } from "../keyword/KeywordTitle";
 
@@ -19,6 +20,7 @@ export const SynonymEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={KeywordTitle} />
         </ReferenceInput>
+        <TextInput label="Name" source="name" />
       </SimpleForm>
     </Edit>
   );

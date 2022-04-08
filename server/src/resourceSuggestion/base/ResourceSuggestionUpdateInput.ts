@@ -27,7 +27,7 @@ class ResourceSuggestionUpdateInput {
   @Field(() => ResourceWhereUniqueInput, {
     nullable: true,
   })
-  ResourceID?: ResourceWhereUniqueInput | null;
+  ResourceID?: ResourceWhereUniqueInput;
 
   @ApiProperty({
     required: false,

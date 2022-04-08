@@ -136,11 +136,9 @@ export class ResourceSuggestionResolverBase {
       data: {
         ...args.data,
 
-        ResourceID: args.data.ResourceID
-          ? {
-              connect: args.data.ResourceID,
-            }
-          : undefined,
+        ResourceID: {
+          connect: args.data.ResourceID,
+        },
 
         userID: {
           connect: args.data.userID,
@@ -187,11 +185,9 @@ export class ResourceSuggestionResolverBase {
         data: {
           ...args.data,
 
-          ResourceID: args.data.ResourceID
-            ? {
-                connect: args.data.ResourceID,
-              }
-            : undefined,
+          ResourceID: {
+            connect: args.data.ResourceID,
+          },
 
           userID: {
             connect: args.data.userID,

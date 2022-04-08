@@ -7,5 +7,5 @@ export type ResourceHistory = {
   readDate: Date | null;
   sourceID?: Resource;
   updatedAt: Date;
-  userID?: User | null;
+  userID?: User;
 };

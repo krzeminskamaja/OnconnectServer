@@ -38,15 +38,12 @@ class ResourceHistoryCreateInput {
   sourceID!: ResourceWhereUniqueInput;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => UserWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => UserWhereUniqueInput)
-  @IsOptional()
-  @Field(() => UserWhereUniqueInput, {
-    nullable: true,
-  })
-  userID?: UserWhereUniqueInput | null;
+  @Field(() => UserWhereUniqueInput)
+  userID!: UserWhereUniqueInput;
 }
 export { ResourceHistoryCreateInput };

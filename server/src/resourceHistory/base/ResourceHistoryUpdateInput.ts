@@ -50,6 +50,6 @@ class ResourceHistoryUpdateInput {
   @Field(() => UserWhereUniqueInput, {
     nullable: true,
   })
-  userID?: UserWhereUniqueInput | null;
+  userID?: UserWhereUniqueInput;
 }
 export { ResourceHistoryUpdateInput };

@@ -73,11 +73,9 @@ export class ResourceSuggestionControllerBase {
       data: {
         ...data,
 
-        ResourceID: data.ResourceID
-          ? {
-              connect: data.ResourceID,
-            }
-          : undefined,
+        ResourceID: {
+          connect: data.ResourceID,
+        },
 
         userID: {
           connect: data.userID,
@@ -251,11 +249,9 @@ export class ResourceSuggestionControllerBase {
         data: {
           ...data,
 
-          ResourceID: data.ResourceID
-            ? {
-                connect: data.ResourceID,
-              }
-            : undefined,
+          ResourceID: {
+            connect: data.ResourceID,
+          },
 
           userID: {
             connect: data.userID,

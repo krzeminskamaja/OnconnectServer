@@ -36,6 +36,7 @@ export const KeywordShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={KEYWORD_TITLE_FIELD} />
             </ReferenceField>
+            <TextField label="Name" source="name" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

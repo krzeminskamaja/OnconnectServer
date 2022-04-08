@@ -61,12 +61,11 @@ class ResourceHistory {
   updatedAt!: Date;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => User,
   })
   @ValidateNested()
   @Type(() => User)
-  @IsOptional()
-  userID?: User | null;
+  userID?: User;
 }
 export { ResourceHistory };
