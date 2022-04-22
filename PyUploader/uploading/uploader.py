@@ -121,7 +121,7 @@ def main():
 
     # Get lcoal resources
     keywords = get_synonyms()
-    resources = PubJSONLoader("articles.json").get_results()
+    resources = PubJSONLoader("file_resources/articles.json").get_results()
 
     # Upload the first n keywords and synonyms
     # upload_keys(session, keywords, len(keywords))
