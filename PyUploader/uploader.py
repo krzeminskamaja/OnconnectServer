@@ -15,6 +15,7 @@ FULLPATH = ENDPOINT + APIPATH
 USERNAME = "admin"
 PWD = "admin"
 
+
 # Standardizes given keyword
 def standardize_text(keyword: str) -> str:
     stripped = keyword.lower().lstrip()
@@ -123,12 +124,43 @@ def main():
     resources = PubJSONLoader("articles.json").get_results()
 
     # Upload the first n keywords and synonyms
-    upload_keys(session, keywords, len(keywords))
-    upload_synonyms(session, keywords, len(keywords))
-    delete_all_resources(session)
+    # upload_keys(session, keywords, len(keywords))
+    # upload_synonyms(session, keywords, len(keywords))
+    # delete_all_resources(session)
 
+    upload_test_user(session)
     n = 100
-    upload_resources(session, resources, n)
+    #upload_resources(session, resources, n)
+
+
+def upload_test_user(session):
+    interests = ["cancer biomarkers", "NSCLC", "diagnostic biomarkers"]
+    interestIDs = []
+    for interest in interests:
+
+        response_keyword = session.get(FULLPATH + "synonyms",
+                                       params={'where[name][equals]': standardize_text(interest), 'take': 1})
+        response_json = response_keyword.json()
+
+        # Article keyword is not present in keyword database
+        if len(response_json) == 0:
+            continue
+
+        # Find representative keyword
+        representative_id = response_json[0]['keywordId']['id']
+        interestIDs.append({"id": representative_id})
+
+    post_response = session.post(FULLPATH + "users", json={
+        "firstName": "Olav",
+        "interestID": {"connect": interestIDs},
+        "lastName": "Olsen",
+        "profession": "CS student",
+        "username": "s184195",
+        "password": "password",
+        "roles": ["user"]
+    })
+
+    print(post_response.status_code)
 
 
 if __name__ == '__main__':
