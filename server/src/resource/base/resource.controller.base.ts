@@ -82,11 +82,12 @@ export class ResourceControllerBase {
       data: data,
       select: {
         abstract: true,
-        authorS: true,
+        authors: true,
         createdAt: true,
         id: true,
         link: true,
         relaseDate: true,
+        resourceType: true,
         title: true,
         updatedAt: true,
       },
@@ -123,11 +124,12 @@ export class ResourceControllerBase {
       ...args,
       select: {
         abstract: true,
-        authorS: true,
+        authors: true,
         createdAt: true,
         id: true,
         link: true,
         relaseDate: true,
+        resourceType: true,
         title: true,
         updatedAt: true,
       },
@@ -163,11 +165,12 @@ export class ResourceControllerBase {
       where: params,
       select: {
         abstract: true,
-        authorS: true,
+        authors: true,
         createdAt: true,
         id: true,
         link: true,
         relaseDate: true,
+        resourceType: true,
         title: true,
         updatedAt: true,
       },
@@ -224,11 +227,12 @@ export class ResourceControllerBase {
         data: data,
         select: {
           abstract: true,
-          authorS: true,
+          authors: true,
           createdAt: true,
           id: true,
           link: true,
           relaseDate: true,
+          resourceType: true,
           title: true,
           updatedAt: true,
         },
@@ -265,11 +269,12 @@ export class ResourceControllerBase {
         where: params,
         select: {
           abstract: true,
-          authorS: true,
+          authors: true,
           createdAt: true,
           id: true,
           link: true,
           relaseDate: true,
+          resourceType: true,
           title: true,
           updatedAt: true,
         },
@@ -678,6 +683,7 @@ export class ResourceControllerBase {
       select: {
         createdAt: true,
         id: true,
+        priority: true,
 
         ResourceID: {
           select: {

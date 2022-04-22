@@ -84,6 +84,7 @@ export class ResourceSuggestionControllerBase {
       select: {
         createdAt: true,
         id: true,
+        priority: true,
 
         ResourceID: {
           select: {
@@ -133,6 +134,7 @@ export class ResourceSuggestionControllerBase {
       select: {
         createdAt: true,
         id: true,
+        priority: true,
 
         ResourceID: {
           select: {
@@ -181,6 +183,7 @@ export class ResourceSuggestionControllerBase {
       select: {
         createdAt: true,
         id: true,
+        priority: true,
 
         ResourceID: {
           select: {
@@ -260,6 +263,7 @@ export class ResourceSuggestionControllerBase {
         select: {
           createdAt: true,
           id: true,
+          priority: true,
 
           ResourceID: {
             select: {
@@ -309,6 +313,7 @@ export class ResourceSuggestionControllerBase {
         select: {
           createdAt: true,
           id: true,
+          priority: true,
 
           ResourceID: {
             select: {

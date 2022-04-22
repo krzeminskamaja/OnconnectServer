@@ -292,11 +292,12 @@ export class KeywordControllerBase {
       ...query,
       select: {
         abstract: true,
-        authorS: true,
+        authors: true,
         createdAt: true,
         id: true,
         link: true,
         relaseDate: true,
+        resourceType: true,
         title: true,
         updatedAt: true,
       },

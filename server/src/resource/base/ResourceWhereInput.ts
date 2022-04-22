@@ -13,11 +13,12 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { JsonFilter } from "../../util/JsonFilter";
 import { ResourceHistoryListRelationFilter } from "../../resourceHistory/base/ResourceHistoryListRelationFilter";
 import { KeywordListRelationFilter } from "../../keyword/base/KeywordListRelationFilter";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { EnumResourceResourceType } from "./EnumResourceResourceType";
 import { ResourceSuggestionListRelationFilter } from "../../resourceSuggestion/base/ResourceSuggestionListRelationFilter";
 @InputType()
 class ResourceWhereInput {
@@ -41,7 +42,7 @@ class ResourceWhereInput {
   @Field(() => JsonFilter, {
     nullable: true,
   })
-  authorS?: JsonFilter;
+  authors?: JsonFilter;
 
   @ApiProperty({
     required: false,
@@ -99,6 +100,17 @@ class ResourceWhereInput {
     nullable: true,
   })
   relaseDate?: DateTimeFilter;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumResourceResourceType,
+  })
+  @IsEnum(EnumResourceResourceType)
+  @IsOptional()
+  @Field(() => EnumResourceResourceType, {
+    nullable: true,
+  })
+  resourceType?: "Article" | "Podcast" | "Video";
 
   @ApiProperty({
     required: false,

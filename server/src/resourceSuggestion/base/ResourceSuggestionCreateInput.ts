@@ -11,12 +11,20 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { IsInt, ValidateNested } from "class-validator";
 import { ResourceWhereUniqueInput } from "../../resource/base/ResourceWhereUniqueInput";
-import { ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 @InputType()
 class ResourceSuggestionCreateInput {
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsInt()
+  @Field(() => Number)
+  priority!: number;
+
   @ApiProperty({
     required: true,
     type: () => ResourceWhereUniqueInput,
