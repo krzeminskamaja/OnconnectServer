@@ -18,6 +18,7 @@ export const ResourceSuggestionShow = (
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <TextField label="Priority" source="priority" />
         <ReferenceField
           label="ResourceID"
           source="resource.id"

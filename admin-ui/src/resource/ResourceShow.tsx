@@ -19,11 +19,12 @@ export const ResourceShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <TextField label="Abstract" source="abstract" />
-        <TextField label="Author(s)" source="authorS" />
+        <TextField label="Author(s)" source="authors" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
         <TextField label="Link" source="link" />
-        <TextField label="Relase Date" source="relaseDate" />
+        <TextField label="Release Date" source="relaseDate" />
+        <TextField label="ResourceType" source="resourceType" />
         <TextField label="Title" source="title" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
@@ -56,6 +57,7 @@ export const ResourceShow = (props: ShowProps): React.ReactElement => {
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
+            <TextField label="Priority" source="priority" />
             <ReferenceField
               label="ResourceID"
               source="resource.id"
