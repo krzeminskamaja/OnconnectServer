@@ -7,12 +7,13 @@ import { ResourceSuggestionListRelationFilter } from "../resourceSuggestion/Reso
 
 export type ResourceWhereInput = {
   abstract?: StringFilter;
-  authorS?: JsonFilter;
+  authors?: JsonFilter;
   historyID?: ResourceHistoryListRelationFilter;
   id?: StringFilter;
   keywordID?: KeywordListRelationFilter;
   link?: StringFilter;
   relaseDate?: DateTimeFilter;
+  resourceType?: "Article" | "Podcast" | "Video";
   suggestionID?: ResourceSuggestionListRelationFilter;
   title?: StringFilter;
 };

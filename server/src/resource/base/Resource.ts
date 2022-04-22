@@ -17,12 +17,14 @@ import {
   IsDate,
   ValidateNested,
   IsOptional,
+  IsEnum,
 } from "class-validator";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Type } from "class-transformer";
 import { ResourceHistory } from "../../resourceHistory/base/ResourceHistory";
 import { Keyword } from "../../keyword/base/Keyword";
+import { EnumResourceResourceType } from "./EnumResourceResourceType";
 import { ResourceSuggestion } from "../../resourceSuggestion/base/ResourceSuggestion";
 @ObjectType()
 class Resource {
@@ -39,7 +41,7 @@ class Resource {
   })
   @IsJSON()
   @Field(() => GraphQLJSONObject)
-  authorS!: JsonValue;
+  authors!: JsonValue;
 
   @ApiProperty({
     required: true,
@@ -90,6 +92,16 @@ class Resource {
   @Type(() => Date)
   @Field(() => Date)
   relaseDate!: Date;
+
+  @ApiProperty({
+    required: true,
+    enum: EnumResourceResourceType,
+  })
+  @IsEnum(EnumResourceResourceType)
+  @Field(() => EnumResourceResourceType, {
+    nullable: true,
+  })
+  resourceType?: "Article" | "Podcast" | "Video";
 
   @ApiProperty({
     required: false,
