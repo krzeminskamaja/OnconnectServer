@@ -1,11 +1,11 @@
-from datetime import date
 import heapq
+from datetime import date
 from typing import Set
 
 from requests import Session
 
 from heuristics import HeurCombined
-from uploader import get_session, FULLPATH
+from uploading.uploader import get_session, FULLPATH
 
 RANKER = HeurCombined()
 

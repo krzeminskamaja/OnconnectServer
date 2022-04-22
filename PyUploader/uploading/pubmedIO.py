@@ -51,8 +51,7 @@ class PubEncoder(json.JSONEncoder):
 
 # Downloads articles from WEB
 def pub_main():
-    import main
-    pubmed = main.PUBMED
+    pubmed = PubMed(tool="POC", email="s184195@student.dtu.dk")
     print("Downloading PubMed articles")
 
     publoader = PubOnlineLoader(pubmed)
