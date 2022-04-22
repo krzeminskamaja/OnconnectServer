@@ -34,6 +34,23 @@ input DateTimeNullableFilter {
   notIn: [DateTime!]
 }
 
+enum EnumResourceResourceType {
+  Article
+  Podcast
+  Video
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
 """
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -168,13 +185,14 @@ enum QueryMode {
 
 type Resource {
   abstract: String!
-  authorS: JSONObject!
+  authors: JSONObject!
   createdAt: DateTime!
   historyId(orderBy: [ResourceHistoryOrderByInput!], skip: Float, take: Float, where: ResourceHistoryWhereInput): [ResourceHistory!]!
   id: String!
   keywordId(orderBy: [KeywordOrderByInput!], skip: Float, take: Float, where: KeywordWhereInput): [Keyword!]!
   link: String!
   relaseDate: DateTime!
+  resourceType: EnumResourceResourceType
   suggestionId(orderBy: [ResourceSuggestionOrderByInput!], skip: Float, take: Float, where: ResourceSuggestionWhereInput): [ResourceSuggestion!]!
   title: String!
   updatedAt: DateTime!
@@ -182,11 +200,12 @@ type Resource {
 
 input ResourceCreateInput {
   abstract: String!
-  authorS: JSONObject!
+  authors: JSONObject!
   historyID: ResourceHistoryCreateNestedManyWithoutResourcesInput
   keywordID: KeywordCreateNestedManyWithoutResourcesInput
   link: String!
   relaseDate: DateTime!
+  resourceType: EnumResourceResourceType!
   suggestionID: ResourceSuggestionCreateNestedManyWithoutResourcesInput
   title: String!
 }
@@ -270,11 +289,12 @@ input ResourceListRelationFilter {
 
 input ResourceOrderByInput {
   abstract: SortOrder
-  authorS: SortOrder
+  authors: SortOrder
   createdAt: SortOrder
   id: SortOrder
   link: SortOrder
   relaseDate: SortOrder
+  resourceType: SortOrder
   title: SortOrder
   updatedAt: SortOrder
 }
@@ -282,6 +302,7 @@ input ResourceOrderByInput {
 type ResourceSuggestion {
   createdAt: DateTime!
   id: String!
+  priority: Float!
   resourceId: Resource
   updatedAt: DateTime!
   userId: User
@@ -289,6 +310,7 @@ type ResourceSuggestion {
 
 input ResourceSuggestionCreateInput {
   ResourceID: ResourceWhereUniqueInput!
+  priority: Float!
   userID: UserWhereUniqueInput!
 }
 
@@ -310,12 +332,14 @@ input ResourceSuggestionOrderByInput {
   ResourceIDId: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  priority: SortOrder
   updatedAt: SortOrder
   userIDId: SortOrder
 }
 
 input ResourceSuggestionUpdateInput {
   ResourceID: ResourceWhereUniqueInput
+  priority: Float
   userID: UserWhereUniqueInput
 }
 
@@ -334,6 +358,7 @@ input ResourceSuggestionUpdateManyWithoutUsersInput {
 input ResourceSuggestionWhereInput {
   ResourceID: ResourceWhereUniqueInput
   id: StringFilter
+  priority: IntFilter
   userID: UserWhereUniqueInput
 }
 
@@ -343,11 +368,12 @@ input ResourceSuggestionWhereUniqueInput {
 
 input ResourceUpdateInput {
   abstract: String
-  authorS: JSONObject
+  authors: JSONObject
   historyID: ResourceHistoryUpdateManyWithoutResourcesInput
   keywordID: KeywordUpdateManyWithoutResourcesInput
   link: String
   relaseDate: DateTime
+  resourceType: EnumResourceResourceType
   suggestionID: ResourceSuggestionUpdateManyWithoutResourcesInput
   title: String
 }
@@ -360,12 +386,13 @@ input ResourceUpdateManyWithoutKeywordsInput {
 
 input ResourceWhereInput {
   abstract: StringFilter
-  authorS: JsonFilter
+  authors: JsonFilter
   historyID: ResourceHistoryListRelationFilter
   id: StringFilter
   keywordID: KeywordListRelationFilter
   link: StringFilter
   relaseDate: DateTimeFilter
+  resourceType: EnumResourceResourceType
   suggestionID: ResourceSuggestionListRelationFilter
   title: StringFilter
 }

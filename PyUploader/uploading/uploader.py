@@ -69,6 +69,14 @@ def upload_synonyms(session, keywords, n):
             return
 
 
+def format_article_url(resource: PubMedArticle):
+    # Find the most recent url for the article
+    if resource.doi is not None:
+        return "https://doi.org/" + resource.doi.split("\n")[0]
+    else:
+        return "https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/" + resource.pubmed_id.split("\n")[0]
+
+
 def upload_resources(session: Session, resources: List[PubMedArticle], n: int):
     for i in range(0, n):
         resource = resources[i]
@@ -102,8 +110,9 @@ def upload_resources(session: Session, resources: List[PubMedArticle], n: int):
         response_resource = session.post(FULLPATH + "resources", json={
             "title": resource.title,
             "abstract": resource.abstract,
-            "authorS": authors,
-            "link": resource.doi,
+            "authors": authors,
+            "link": format_article_url(resource),
+            "resourceType": "Article",
             "relaseDate": date.isoformat(),
             "keywordID": {"connect": connected_keywords}
         })
@@ -115,23 +124,6 @@ def delete_all_resources(session):
     resources = response.json()
     for resource in resources:
         resp = session.delete(FULLPATH + "resources" + "/" + resource['id'])
-
-
-def main():
-    session = get_session()
-
-    # Get lcoal resources
-    keywords = get_synonyms()
-    resources = PubJSONLoader("../file_resources/articles.json").get_results()
-
-    # Upload the first n keywords and synonyms
-    # upload_keys(session, keywords, len(keywords))
-    # upload_synonyms(session, keywords, len(keywords))
-    # delete_all_resources(session)
-
-    upload_test_user(session)
-    n = 100
-    #upload_resources(session, resources, n)
 
 
 def upload_test_user(session):
@@ -161,7 +153,25 @@ def upload_test_user(session):
         "roles": ["user"]
     })
 
-    print(post_response.status_code)
+    # print(post_response.status_code)
+
+
+def main():
+    session = get_session()
+
+    # Get local resources
+    keywords = get_synonyms()
+    resources = PubJSONLoader("../file_resources/articles.json").get_results()
+
+    # Upload the first n keywords and synonyms
+    # upload_keys(session, keywords, len(keywords))
+    # upload_synonyms(session, keywords, len(keywords))
+
+    # upload_test_user(session)
+
+    n = 100
+    delete_all_resources(session)
+    upload_resources(session, resources, n)
 
 
 if __name__ == '__main__':
