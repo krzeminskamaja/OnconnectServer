@@ -137,7 +137,15 @@ export class KeywordResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        childID: args.data.childID
+          ? {
+              connect: args.data.childID,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -176,7 +184,15 @@ export class KeywordResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          childID: args.data.childID
+            ? {
+                connect: args.data.childID,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -208,6 +224,32 @@ export class KeywordResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [Keyword])
+  @nestAccessControl.UseRoles({
+    resource: "Keyword",
+    action: "read",
+    possession: "any",
+  })
+  async parentId(
+    @graphql.Parent() parent: Keyword,
+    @graphql.Args() args: KeywordFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Keyword[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Keyword",
+    });
+    const results = await this.service.findParentId(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
   }
 
   @graphql.ResolveField(() => [Resource])
@@ -286,5 +328,29 @@ export class KeywordResolverBase {
     }
 
     return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => Keyword, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Keyword",
+    action: "read",
+    possession: "any",
+  })
+  async childId(
+    @graphql.Parent() parent: Keyword,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Keyword | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Keyword",
+    });
+    const result = await this.service.getChildId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
   }
 }

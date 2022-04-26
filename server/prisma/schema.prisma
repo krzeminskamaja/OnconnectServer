@@ -37,6 +37,7 @@ model ResourceHistory {
 model ResourceSuggestion {
   createdAt    DateTime @default(now())
   id           String   @id @default(cuid())
+  priority     Int
   ResourceID   Resource @relation(fields: [ResourceIDId], references: [id])
   ResourceIDId String
   updatedAt    DateTime @updatedAt
@@ -46,22 +47,27 @@ model ResourceSuggestion {
 
 model Resource {
   abstract     String
-  authorS      Json
-  createdAt    DateTime             @default(now())
+  authors      Json
+  createdAt    DateTime                 @default(now())
   historyID    ResourceHistory[]
-  id           String               @id @default(cuid())
+  id           String                   @id @default(cuid())
+  imageURL     String?
   keywordID    Keyword[]
-  link         String               @unique
+  link         String                   @unique
   relaseDate   DateTime
+  resourceType EnumResourceResourceType
   suggestionID ResourceSuggestion[]
   title        String
-  updatedAt    DateTime             @updatedAt
+  updatedAt    DateTime                 @updatedAt
 }
 
 model Keyword {
+  childID    Keyword?   @relation(name: "childID", fields: [childIDId], references: [id])
+  childIDId  String?
   createdAt  DateTime   @default(now())
   id         String     @id @default(cuid())
   name       String     @unique
+  parentID   Keyword[]  @relation(name: "childID")
   resourceID Resource[]
   synonymID  Synonym[]
   updatedAt  DateTime   @updatedAt
@@ -75,4 +81,10 @@ model Synonym {
   keywordIdId String
   name        String   @unique
   updatedAt   DateTime @updatedAt
+}
+
+enum EnumResourceResourceType {
+  Article
+  Podcast
+  Video
 }

@@ -47,6 +47,17 @@ export class KeywordServiceBase {
     return this.prisma.keyword.delete(args);
   }
 
+  async findParentId(
+    parentId: string,
+    args: Prisma.KeywordFindManyArgs
+  ): Promise<Keyword[]> {
+    return this.prisma.keyword
+      .findUnique({
+        where: { id: parentId },
+      })
+      .parentID(args);
+  }
+
   async findResourceId(
     parentId: string,
     args: Prisma.ResourceFindManyArgs
@@ -78,5 +89,13 @@ export class KeywordServiceBase {
         where: { id: parentId },
       })
       .userID(args);
+  }
+
+  async getChildId(parentId: string): Promise<Keyword | null> {
+    return this.prisma.keyword
+      .findUnique({
+        where: { id: parentId },
+      })
+      .childID();
   }
 }
