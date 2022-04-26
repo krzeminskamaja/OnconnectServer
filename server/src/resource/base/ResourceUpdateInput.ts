@@ -17,12 +17,14 @@ import {
   IsJSON,
   ValidateNested,
   IsDate,
+  IsEnum,
 } from "class-validator";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { ResourceHistoryUpdateManyWithoutResourcesInput } from "./ResourceHistoryUpdateManyWithoutResourcesInput";
 import { Type } from "class-transformer";
 import { KeywordUpdateManyWithoutResourcesInput } from "./KeywordUpdateManyWithoutResourcesInput";
+import { EnumResourceResourceType } from "./EnumResourceResourceType";
 import { ResourceSuggestionUpdateManyWithoutResourcesInput } from "./ResourceSuggestionUpdateManyWithoutResourcesInput";
 @InputType()
 class ResourceUpdateInput {
@@ -45,7 +47,7 @@ class ResourceUpdateInput {
   @Field(() => GraphQLJSONObject, {
     nullable: true,
   })
-  authorS?: InputJsonValue;
+  authors?: InputJsonValue;
 
   @ApiProperty({
     required: false,
@@ -58,6 +60,17 @@ class ResourceUpdateInput {
     nullable: true,
   })
   historyID?: ResourceHistoryUpdateManyWithoutResourcesInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  image?: string | null;
 
   @ApiProperty({
     required: false,
@@ -92,6 +105,17 @@ class ResourceUpdateInput {
     nullable: true,
   })
   relaseDate?: Date;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumResourceResourceType,
+  })
+  @IsEnum(EnumResourceResourceType)
+  @IsOptional()
+  @Field(() => EnumResourceResourceType, {
+    nullable: true,
+  })
+  resourceType?: "Article" | "Podcast" | "Video";
 
   @ApiProperty({
     required: false,

@@ -5,11 +5,13 @@ import { ResourceSuggestionUpdateManyWithoutResourcesInput } from "./ResourceSug
 
 export type ResourceUpdateInput = {
   abstract?: string;
-  authorS?: InputJsonValue;
+  authors?: InputJsonValue;
   historyID?: ResourceHistoryUpdateManyWithoutResourcesInput;
+  image?: string | null;
   keywordID?: KeywordUpdateManyWithoutResourcesInput;
   link?: string;
   relaseDate?: Date;
+  resourceType?: "Article" | "Podcast" | "Video";
   suggestionID?: ResourceSuggestionUpdateManyWithoutResourcesInput;
   title?: string;
 };
