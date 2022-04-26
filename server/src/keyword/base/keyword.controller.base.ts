@@ -79,8 +79,22 @@ export class KeywordControllerBase {
       );
     }
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        childID: data.childID
+          ? {
+              connect: data.childID,
+            }
+          : undefined,
+      },
       select: {
+        childID: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
         name: true,
@@ -118,6 +132,12 @@ export class KeywordControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
+        childID: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
         name: true,
@@ -154,6 +174,12 @@ export class KeywordControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        childID: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
         name: true,
@@ -209,8 +235,22 @@ export class KeywordControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          childID: data.childID
+            ? {
+                connect: data.childID,
+              }
+            : undefined,
+        },
         select: {
+          childID: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           id: true,
           name: true,
@@ -248,6 +288,12 @@ export class KeywordControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          childID: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           id: true,
           name: true,
@@ -262,6 +308,188 @@ export class KeywordControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Get("/:id/parentID")
+  @nestAccessControl.UseRoles({
+    resource: "Keyword",
+    action: "read",
+    possession: "any",
+  })
+  @ApiNestedQuery(KeywordFindManyArgs)
+  async findManyParentId(
+    @common.Req() request: Request,
+    @common.Param() params: KeywordWhereUniqueInput,
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<Keyword[]> {
+    const query = plainToClass(KeywordFindManyArgs, request.query);
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Keyword",
+    });
+    const results = await this.service.findParentId(params.id, {
+      ...query,
+      select: {
+        childID: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+        name: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results.map((result) => permission.filter(result));
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Post("/:id/parentID")
+  @nestAccessControl.UseRoles({
+    resource: "Keyword",
+    action: "update",
+    possession: "any",
+  })
+  async createParentId(
+    @common.Param() params: KeywordWhereUniqueInput,
+    @common.Body() body: KeywordWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      parentID: {
+        connect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Keyword",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Keyword"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Patch("/:id/parentID")
+  @nestAccessControl.UseRoles({
+    resource: "Keyword",
+    action: "update",
+    possession: "any",
+  })
+  async updateParentId(
+    @common.Param() params: KeywordWhereUniqueInput,
+    @common.Body() body: KeywordWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      parentID: {
+        set: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Keyword",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Keyword"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Delete("/:id/parentID")
+  @nestAccessControl.UseRoles({
+    resource: "Keyword",
+    action: "update",
+    possession: "any",
+  })
+  async deleteParentId(
+    @common.Param() params: KeywordWhereUniqueInput,
+    @common.Body() body: KeywordWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      parentID: {
+        disconnect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Keyword",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Keyword"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
@@ -292,11 +520,13 @@ export class KeywordControllerBase {
       ...query,
       select: {
         abstract: true,
-        authorS: true,
+        authors: true,
         createdAt: true,
         id: true,
+        imageURL: true,
         link: true,
         relaseDate: true,
+        resourceType: true,
         title: true,
         updatedAt: true,
       },

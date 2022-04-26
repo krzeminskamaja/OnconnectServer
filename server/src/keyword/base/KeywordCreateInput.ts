@@ -11,13 +11,27 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, ValidateNested, IsOptional } from "class-validator";
-import { ResourceCreateNestedManyWithoutKeywordsInput } from "./ResourceCreateNestedManyWithoutKeywordsInput";
+import { KeywordWhereUniqueInput } from "./KeywordWhereUniqueInput";
+import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { KeywordCreateNestedManyWithoutKeywordsInput } from "./KeywordCreateNestedManyWithoutKeywordsInput";
+import { ResourceCreateNestedManyWithoutKeywordsInput } from "./ResourceCreateNestedManyWithoutKeywordsInput";
 import { SynonymCreateNestedManyWithoutKeywordsInput } from "./SynonymCreateNestedManyWithoutKeywordsInput";
 import { UserCreateNestedManyWithoutKeywordsInput } from "./UserCreateNestedManyWithoutKeywordsInput";
 @InputType()
 class KeywordCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => KeywordWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => KeywordWhereUniqueInput)
+  @IsOptional()
+  @Field(() => KeywordWhereUniqueInput, {
+    nullable: true,
+  })
+  childID?: KeywordWhereUniqueInput | null;
+
   @ApiProperty({
     required: true,
     type: String,
@@ -25,6 +39,18 @@ class KeywordCreateInput {
   @IsString()
   @Field(() => String)
   name!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => KeywordCreateNestedManyWithoutKeywordsInput,
+  })
+  @ValidateNested()
+  @Type(() => KeywordCreateNestedManyWithoutKeywordsInput)
+  @IsOptional()
+  @Field(() => KeywordCreateNestedManyWithoutKeywordsInput, {
+    nullable: true,
+  })
+  parentID?: KeywordCreateNestedManyWithoutKeywordsInput;
 
   @ApiProperty({
     required: true,
