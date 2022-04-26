@@ -5,6 +5,7 @@ export type ResourceOrderByInput = {
   authors?: SortOrder;
   createdAt?: SortOrder;
   id?: SortOrder;
+  imageURL?: SortOrder;
   link?: SortOrder;
   relaseDate?: SortOrder;
   resourceType?: SortOrder;

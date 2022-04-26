@@ -63,6 +63,17 @@ class ResourceUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  imageURL?: string | null;
+
+  @ApiProperty({
+    required: false,
     type: () => KeywordUpdateManyWithoutResourcesInput,
   })
   @ValidateNested()

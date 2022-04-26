@@ -9,6 +9,7 @@ export type Resource = {
   createdAt: Date;
   historyID?: Array<ResourceHistory>;
   id: string;
+  imageURL: string | null;
   keywordID?: Array<Keyword>;
   link: string;
   relaseDate: Date;

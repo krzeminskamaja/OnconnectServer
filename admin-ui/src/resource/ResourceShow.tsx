@@ -22,6 +22,7 @@ export const ResourceShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Author(s)" source="authors" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <TextField label="ImageURL" source="imageURL" />
         <TextField label="Link" source="link" />
         <TextField label="Release Date" source="relaseDate" />
         <TextField label="ResourceType" source="resourceType" />

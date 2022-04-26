@@ -85,6 +85,7 @@ export class ResourceControllerBase {
         authors: true,
         createdAt: true,
         id: true,
+        imageURL: true,
         link: true,
         relaseDate: true,
         resourceType: true,
@@ -127,6 +128,7 @@ export class ResourceControllerBase {
         authors: true,
         createdAt: true,
         id: true,
+        imageURL: true,
         link: true,
         relaseDate: true,
         resourceType: true,
@@ -168,6 +170,7 @@ export class ResourceControllerBase {
         authors: true,
         createdAt: true,
         id: true,
+        imageURL: true,
         link: true,
         relaseDate: true,
         resourceType: true,
@@ -230,6 +233,7 @@ export class ResourceControllerBase {
           authors: true,
           createdAt: true,
           id: true,
+          imageURL: true,
           link: true,
           relaseDate: true,
           resourceType: true,
@@ -272,6 +276,7 @@ export class ResourceControllerBase {
           authors: true,
           createdAt: true,
           id: true,
+          imageURL: true,
           link: true,
           relaseDate: true,
           resourceType: true,
@@ -505,6 +510,12 @@ export class ResourceControllerBase {
     const results = await this.service.findKeywordId(params.id, {
       ...query,
       select: {
+        childID: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
         name: true,

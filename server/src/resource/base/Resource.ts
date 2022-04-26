@@ -69,6 +69,17 @@ class Resource {
   id!: string;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  imageURL!: string | null;
+
+  @ApiProperty({
     required: true,
     type: () => [Keyword],
   })

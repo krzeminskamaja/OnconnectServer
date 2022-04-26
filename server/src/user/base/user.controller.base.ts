@@ -505,6 +505,12 @@ export class UserControllerBase {
     const results = await this.service.findInterestId(params.id, {
       ...query,
       select: {
+        childID: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
         name: true,

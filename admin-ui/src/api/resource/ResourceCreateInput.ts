@@ -7,6 +7,7 @@ export type ResourceCreateInput = {
   abstract: string;
   authors: InputJsonValue;
   historyID?: ResourceHistoryCreateNestedManyWithoutResourcesInput;
+  imageURL?: string | null;
   keywordID?: KeywordCreateNestedManyWithoutResourcesInput;
   link: string;
   relaseDate: Date;

@@ -11,14 +11,28 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { KeywordWhereUniqueInput } from "./KeywordWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { StringFilter } from "../../util/StringFilter";
+import { KeywordListRelationFilter } from "./KeywordListRelationFilter";
 import { ResourceListRelationFilter } from "../../resource/base/ResourceListRelationFilter";
 import { SynonymListRelationFilter } from "../../synonym/base/SynonymListRelationFilter";
 import { UserListRelationFilter } from "../../user/base/UserListRelationFilter";
 @InputType()
 class KeywordWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => KeywordWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => KeywordWhereUniqueInput)
+  @IsOptional()
+  @Field(() => KeywordWhereUniqueInput, {
+    nullable: true,
+  })
+  childID?: KeywordWhereUniqueInput;
+
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -40,6 +54,18 @@ class KeywordWhereInput {
     nullable: true,
   })
   name?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => KeywordListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => KeywordListRelationFilter)
+  @IsOptional()
+  @Field(() => KeywordListRelationFilter, {
+    nullable: true,
+  })
+  parentID?: KeywordListRelationFilter;
 
   @ApiProperty({
     required: false,

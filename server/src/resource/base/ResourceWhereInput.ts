@@ -16,6 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { JsonFilter } from "../../util/JsonFilter";
 import { ResourceHistoryListRelationFilter } from "../../resourceHistory/base/ResourceHistoryListRelationFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { KeywordListRelationFilter } from "../../keyword/base/KeywordListRelationFilter";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { EnumResourceResourceType } from "./EnumResourceResourceType";
@@ -66,6 +67,17 @@ class ResourceWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  imageURL?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

@@ -61,6 +61,15 @@ class ResourceOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  imageURL?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   link?: SortOrder;
 
   @ApiProperty({

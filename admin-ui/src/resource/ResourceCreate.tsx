@@ -29,6 +29,7 @@ export const ResourceCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ResourceHistoryTitle} />
         </ReferenceArrayInput>
+        <TextInput label="ImageURL" source="imageURL" />
         <ReferenceArrayInput
           source="keywordID"
           reference="Keyword"

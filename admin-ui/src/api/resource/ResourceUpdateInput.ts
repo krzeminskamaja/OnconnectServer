@@ -7,6 +7,7 @@ export type ResourceUpdateInput = {
   abstract?: string;
   authors?: InputJsonValue;
   historyID?: ResourceHistoryUpdateManyWithoutResourcesInput;
+  imageURL?: string | null;
   keywordID?: KeywordUpdateManyWithoutResourcesInput;
   link?: string;
   relaseDate?: Date;

@@ -10,58 +10,35 @@ https://docs.amplication.com/docs/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { InputType, Field } from "@nestjs/graphql";
+import { KeywordWhereUniqueInput } from "./KeywordWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
-import { SortOrder } from "../../util/SortOrder";
-
-@InputType({
-  isAbstract: true,
-  description: undefined,
-})
-class KeywordOrderByInput {
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @Field(() => SortOrder, {
+@InputType()
+class KeywordUpdateManyWithoutKeywordsInput {
+  @Field(() => [KeywordWhereUniqueInput], {
     nullable: true,
   })
-  childIDId?: SortOrder;
-
   @ApiProperty({
     required: false,
-    enum: ["asc", "desc"],
+    type: () => [KeywordWhereUniqueInput],
   })
-  @Field(() => SortOrder, {
+  connect?: Array<KeywordWhereUniqueInput>;
+
+  @Field(() => [KeywordWhereUniqueInput], {
     nullable: true,
   })
-  createdAt?: SortOrder;
-
   @ApiProperty({
     required: false,
-    enum: ["asc", "desc"],
+    type: () => [KeywordWhereUniqueInput],
   })
-  @Field(() => SortOrder, {
+  disconnect?: Array<KeywordWhereUniqueInput>;
+
+  @Field(() => [KeywordWhereUniqueInput], {
     nullable: true,
   })
-  id?: SortOrder;
-
   @ApiProperty({
     required: false,
-    enum: ["asc", "desc"],
+    type: () => [KeywordWhereUniqueInput],
   })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  name?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  updatedAt?: SortOrder;
+  set?: Array<KeywordWhereUniqueInput>;
 }
-
-export { KeywordOrderByInput };
+export { KeywordUpdateManyWithoutKeywordsInput };

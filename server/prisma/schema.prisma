@@ -51,6 +51,7 @@ model Resource {
   createdAt    DateTime                 @default(now())
   historyID    ResourceHistory[]
   id           String                   @id @default(cuid())
+  imageURL     String?
   keywordID    Keyword[]
   link         String                   @unique
   relaseDate   DateTime
@@ -61,9 +62,12 @@ model Resource {
 }
 
 model Keyword {
+  childID    Keyword?   @relation(name: "childID", fields: [childIDId], references: [id])
+  childIDId  String?
   createdAt  DateTime   @default(now())
   id         String     @id @default(cuid())
   name       String     @unique
+  parentID   Keyword[]  @relation(name: "childID")
   resourceID Resource[]
   synonymID  Synonym[]
   updatedAt  DateTime   @updatedAt
