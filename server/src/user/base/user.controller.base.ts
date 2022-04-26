@@ -683,6 +683,7 @@ export class UserControllerBase {
       select: {
         createdAt: true,
         id: true,
+        priority: true,
 
         ResourceID: {
           select: {

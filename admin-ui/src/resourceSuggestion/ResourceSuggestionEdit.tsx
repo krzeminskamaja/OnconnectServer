@@ -3,6 +3,7 @@ import {
   Edit,
   SimpleForm,
   EditProps,
+  NumberInput,
   ReferenceInput,
   SelectInput,
 } from "react-admin";
@@ -15,6 +16,7 @@ export const ResourceSuggestionEdit = (
   return (
     <Edit {...props}>
       <SimpleForm>
+        <NumberInput step={1} label="Priority" source="priority" />
         <ReferenceInput
           source="resource.id"
           reference="Resource"

@@ -5,11 +5,13 @@ import { ResourceSuggestionCreateNestedManyWithoutResourcesInput } from "./Resou
 
 export type ResourceCreateInput = {
   abstract: string;
-  authorS: InputJsonValue;
+  authors: InputJsonValue;
   historyID?: ResourceHistoryCreateNestedManyWithoutResourcesInput;
+  image?: string | null;
   keywordID?: KeywordCreateNestedManyWithoutResourcesInput;
   link: string;
   relaseDate: Date;
+  resourceType: "Article" | "Podcast" | "Video";
   suggestionID?: ResourceSuggestionCreateNestedManyWithoutResourcesInput;
   title: string;
 };
