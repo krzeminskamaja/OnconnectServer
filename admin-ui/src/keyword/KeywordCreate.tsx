@@ -4,11 +4,14 @@ import {
   Create,
   SimpleForm,
   CreateProps,
-  TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
+  TextInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 
+import { KeywordTitle } from "./KeywordTitle";
 import { ResourceTitle } from "../resource/ResourceTitle";
 import { SynonymTitle } from "../synonym/SynonymTitle";
 import { UserTitle } from "../user/UserTitle";
@@ -17,7 +20,22 @@ export const KeywordCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <ReferenceArrayInput
+          source="childID"
+          reference="Keyword"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={KeywordTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Name" source="name" />
+        <ReferenceInput
+          source="keyword.id"
+          reference="Keyword"
+          label="ParentID"
+        >
+          <SelectInput optionText={KeywordTitle} />
+        </ReferenceInput>
         <ReferenceArrayInput
           source="resourceID"
           reference="Resource"
