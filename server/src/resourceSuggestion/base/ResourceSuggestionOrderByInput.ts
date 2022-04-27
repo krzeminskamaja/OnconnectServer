@@ -43,6 +43,15 @@ class ResourceSuggestionOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  priority?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   ResourceIDId?: SortOrder;
 
   @ApiProperty({

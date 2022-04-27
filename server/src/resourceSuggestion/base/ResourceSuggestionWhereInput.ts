@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
+import { IntFilter } from "../../util/IntFilter";
 import { ResourceWhereUniqueInput } from "../../resource/base/ResourceWhereUniqueInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 @InputType()
@@ -28,6 +29,17 @@ class ResourceSuggestionWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: IntFilter,
+  })
+  @Type(() => IntFilter)
+  @IsOptional()
+  @Field(() => IntFilter, {
+    nullable: true,
+  })
+  priority?: IntFilter;
 
   @ApiProperty({
     required: false,

@@ -5,13 +5,15 @@ import { ResourceSuggestion } from "../resourceSuggestion/ResourceSuggestion";
 
 export type Resource = {
   abstract: string;
-  authorS: JsonValue;
+  authors: JsonValue;
   createdAt: Date;
   historyID?: Array<ResourceHistory>;
   id: string;
+  imageURL: string | null;
   keywordID?: Array<Keyword>;
   link: string;
   relaseDate: Date;
+  resourceType?: "Article" | "Podcast" | "Video";
   suggestionID?: Array<ResourceSuggestion>;
   title: string;
   updatedAt: Date;
