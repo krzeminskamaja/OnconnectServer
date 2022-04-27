@@ -34,7 +34,7 @@ class ResourceOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  authorS?: SortOrder;
+  authors?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -61,6 +61,15 @@ class ResourceOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  imageURL?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   link?: SortOrder;
 
   @ApiProperty({
@@ -71,6 +80,15 @@ class ResourceOrderByInput {
     nullable: true,
   })
   relaseDate?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  resourceType?: SortOrder;
 
   @ApiProperty({
     required: false,

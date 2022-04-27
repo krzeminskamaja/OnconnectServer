@@ -11,13 +11,22 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
+import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { Resource } from "../../resource/base/Resource";
 import { Synonym } from "../../synonym/base/Synonym";
 import { User } from "../../user/base/User";
 @ObjectType()
 class Keyword {
+  @ApiProperty({
+    required: false,
+    type: () => [Keyword],
+  })
+  @ValidateNested()
+  @Type(() => Keyword)
+  @IsOptional()
+  childID?: Array<Keyword>;
+
   @ApiProperty({
     required: true,
   })
@@ -41,6 +50,15 @@ class Keyword {
   @IsString()
   @Field(() => String)
   name!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => Keyword,
+  })
+  @ValidateNested()
+  @Type(() => Keyword)
+  @IsOptional()
+  parentID?: Keyword | null;
 
   @ApiProperty({
     required: true,
