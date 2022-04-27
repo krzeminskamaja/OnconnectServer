@@ -4,5 +4,6 @@ export type KeywordOrderByInput = {
   createdAt?: SortOrder;
   id?: SortOrder;
   name?: SortOrder;
+  parentIDId?: SortOrder;
   updatedAt?: SortOrder;
 };
