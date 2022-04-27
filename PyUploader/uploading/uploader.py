@@ -36,6 +36,11 @@ def get_session() -> Session:
     return session
 
 
+def get_id_by_name(session, db_type: str, name: str) -> str:
+    response = session.get(FULLPATH + db_type, params={'where[name][equals]': name, 'take': 1})
+    return response.json()[0]['id']
+
+
 # Upload the first n keywords
 def upload_keys(session, keywords, n):
     i = 0
@@ -81,30 +86,36 @@ def flat_list_rec(keytree, path):
         keytree[path + "/" + old_parent] = keytree.pop(old_parent)
     return built_list
 
+
+# Renames the loaded keywords and returns a flattened list
 def rename_flatten(keytree):
     return flat_list_rec(keytree, "")
 
 
 def patch_rec(session, keytree, parent_id):
     connect_list = []
+
+    # Find IDs of children
     for child, grandchildren in keytree.items():
-        child_id = session.get(FULLPATH + "keywords", params={'where[name][equals]': child, 'take': 1}).json()[0]['id']
+        child_id = get_id_by_name(session, "keywords", child)
         connect_list.append({"id": child_id})
+
+        # Resolve children relations
         patch_rec(session, grandchildren, child_id)
 
+    # If any relations are present, update them
     if len(connect_list) > 0:
-        session.patch(FULLPATH + f'keywords/{parent_id}', json={"childID"})
+        session.patch(FULLPATH + f'keywords/{parent_id}', json={"childID": {"set": connect_list}})
 
+
+# Make parent-child relations in DB
 def patch_keytree(session, keytree):
     for main_category, children in keytree.items():
-        main_id = session.get(FULLPATH + "keywords", params={'where[name][equals]': main_category, 'take': 1}).json()[0]['id']
+        main_id = get_id_by_name(session, "keywords", main_category)
         patch_rec(session, children, main_id)
 
 
-
-
 def upload_pretty_keywords(session):
-    print("Hello")
     file = open("../file_resources/key_hierarchy.json", "r")
     keytree = json.load(file)
 
@@ -112,10 +123,9 @@ def upload_pretty_keywords(session):
     synonyms = dict([(key, []) for key in keys_flat])
 
     # Upload the keywords
-    # upload_keys(session, synonyms, len(synonyms))
-    # upload_synonyms(session, synonyms, len(synonyms))
-    patch_keytree(session, keytree, "")
-    print(keytree)
+    upload_keys(session, synonyms, len(synonyms))
+    upload_synonyms(session, synonyms, len(synonyms))
+    patch_keytree(session, keytree)
 
 
 def format_article_url(resource: PubMedArticle):
@@ -126,7 +136,7 @@ def format_article_url(resource: PubMedArticle):
         return "https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/" + resource.pubmed_id.split("\n")[0]
 
 
-def upload_resources(session: Session, resources: List[PubMedArticle], n: int):
+def upload_pubmed_resources(session: Session, resources: List[PubMedArticle], n: int):
     for i in range(0, n):
         resource = resources[i]
 
@@ -162,9 +172,41 @@ def upload_resources(session: Session, resources: List[PubMedArticle], n: int):
             "authors": authors,
             "link": format_article_url(resource),
             "resourceType": "Article",
-            "relaseDate": date.isoformat(),
+            "releaseDate": date.isoformat(),
             "keywordID": {"connect": connected_keywords}
         })
+
+
+def upload_resources(session: Session, resources):
+    for resource in resources:
+        # Find id for resource keywords for all keywords and add them
+        connected_keywords = []
+        for keyword in resource['keywords']:
+            key_id = get_id_by_name(session, "keywords", "/" + keyword)
+            connected_keywords.append({"id": key_id})
+
+        # Format date and authors
+        date = datetime.fromisoformat(resource['releaseDate'])
+        authors = json.dumps(resource['authors'])
+
+        data = {
+            "title": resource['title'],
+            "abstract": resource['abstract'],
+            "authors": authors,
+            "link": resource['link'],
+            "resourceType": resource['resourceType'],
+            "relaseDate": date.isoformat(),
+            "keywordID": {"connect": connected_keywords}
+        }
+
+        if len(resource['image']) > 0:
+            data['imageURL'] = resource['image']
+
+        # Post resource
+        response_resource = session.post(FULLPATH + "resources", json=data)
+
+        if response_resource.status_code >= 400:
+            print("Error in uploading resources")
 
 
 # Delete ALL existing resources to start from a clean slate
@@ -175,11 +217,28 @@ def delete_all_resources(session):
         resp = session.delete(FULLPATH + "resources" + "/" + resource['id'])
 
 
+def fake_suggestions(session):
+    response_resource = session.get(FULLPATH + "resources")
+    resources = response_resource.json()
+    #suggest_list = [{"id": resource['id']} for resource in resources]
+    suggest_list = [resource['id'] for resource in resources]
+    return suggest_list
+
+
+def delete_test_user(session):
+    response = session.get(FULLPATH + "users", params={'where[firstName][equals]': "Lars", 'take': 1})
+    resp_json = response.json()
+
+    if len(resp_json) == 0:
+        return
+
+    user_id = resp_json[0]['id']
+    session.delete(FULLPATH + "users/" + user_id)
+
 def upload_test_user(session):
-    interests = ["cancer biomarkers", "NSCLC", "diagnostic biomarkers"]
+    interests = ["NSCLC", "Histology/EGFR", "Treatment/Immunotherapy"]
     interestIDs = []
     for interest in interests:
-
         response_keyword = session.get(FULLPATH + "synonyms",
                                        params={'where[name][equals]': standardize_text(interest), 'take': 1})
         response_json = response_keyword.json()
@@ -193,34 +252,48 @@ def upload_test_user(session):
         interestIDs.append({"id": representative_id})
 
     post_response = session.post(FULLPATH + "users", json={
-        "firstName": "Olav",
+        "firstName": "Lars",
         "interestID": {"connect": interestIDs},
-        "lastName": "Olsen",
-        "profession": "CS student",
-        "username": "s184195",
+        "lastName": "Larsen",
+        "profession": "Oncologist",
+        "username": "llarsen",
         "password": "password",
-        "roles": ["user"]
+        "roles": ["user"],
+
     })
 
-    # print(post_response.status_code)
+    userID = session.get(FULLPATH + "users", params={'where[firstName][equals]': "Lars", 'take': 1}).json()[0]['id']
+
+    # Set suggested resources
+    for index, suggestion  in enumerate(fake_suggestions(session)):
+        response_syn = session.post(FULLPATH + "resourceSuggestions", json={
+            "ResourceID": {"id": suggestion},
+            "userID": {"id": userID},
+            "priority": index
+        })
+        if response_syn.status_code >= 400:
+            print("Error in adding suggestion")
+    if post_response.status_code >= 400:
+        print("Error in uploading test user")
+
+    print("UserID: " + userID)
+
+def get_resources():
+    file = open("../file_resources/resources.json", "r")
+    return json.load(file)
 
 
 def main():
     session = get_session()
+    resources = get_resources()
+
     upload_pretty_keywords(session)
-    # Get local resources
-    # keywords = get_synonyms()
-    # resources = PubJSONLoader("../file_resources/articles.json").get_results()
 
-    # Upload the first n keywords and synonyms
-    # upload_keys(session, keywords, len(keywords))
-    # upload_synonyms(session, keywords, len(keywords))
+    delete_all_resources(session)
+    upload_resources(session, resources)
 
-    # upload_test_user(session)
-
-    # n = 100
-    # delete_all_resources(session)
-    # upload_resources(session, resources, n)
+    delete_test_user(session)
+    upload_test_user(session)
 
 
 if __name__ == '__main__':

@@ -1,42 +1,195 @@
 [
   {
-    "abstract": "",
-    "authors": "",
-    "keywords": [],
-    "link": "",
-    "releaseDate": "",
+    "abstract": "Heat-shock protein 70 (Hsp70) is frequently found on the plasma membrane of a large number of malignant tumors including non-small cell lung cancer (NSCLC) and gets released into the blood circulation in lipid vesicles. On the one hand, a membrane (m)Hsp70-positive phenotype correlates with a high aggressiveness of the tumor; on the other hand, mHsp70 serves as a target for natural killer (NK) cells that had been pre-stimulated with Hsp70-peptide TKD plus low-dose interleukin-2 (TKD/IL-2). Following activation, NK cells show an up-regulated expression of activatory C-type lectin receptors, such as CD94/NKG2C, NKG2D, and natural cytotoxicity receptors (NCRs; NKp44, NKp46, and NKp30) and thereby gain the capacity to kill mHsp70-positive tumor cells. With respect to these results, the efficacy of ex vivo TKD/IL-2 stimulated, autologous NK cells is currently tested in a proof-of-concept phase II clinical trial in patients with squamous cell NSCLC after radiochemotherapy (RCT) at the TUM. Inclusion criteria are histological proven, non-resectable NSCLC in stage IIIA/IIIB, clinical responses to RCT and a mHsp70-positive tumor phenotype. The mHsp70 status is determined in the serum of patients using the lipHsp70 ELISA test, which enables the quantification of liposomal and free Hsp70. Squamous cell and adeno NSCLC patients had significantly higher serum Hsp70 levels than healthy controls. A significant correlation of serum Hsp70 levels with the gross tumor volume was shown for adeno and squamous cell NSCLC. However, significantly elevated ratios of activated CD69(+)/CD94(+) NK cells that are associated with low serum Hsp70 levels were observed only in patients with squamous cell lung cancer. These data might provide a first hint that squamous cell NSCLC is more immunogenic than adeno NSCLC.",
+    "authors": [
+    {
+      "affiliation": "Department of Radiation Oncology, Klinikum rechts der Isar, Technische Universit\\u00e4t M\\u00fcnchen (TUM) , M\\u00fcnchen , Germany.",
+      "firstname": "Sophie",
+      "initials": "S",
+      "lastname": "Gunther"
+    },
+    {
+      "affiliation": "Department of Radiation Oncology, Martin Luther University Halle-Wittenberg , Halle (Saale) , Germany.",
+      "firstname": "Christian",
+      "initials": "C",
+      "lastname": "Ostheimer"
+    },
+    {
+      "affiliation": "Department of Radiation Oncology, Klinikum rechts der Isar, Technische Universit\\u00e4t M\\u00fcnchen (TUM) , M\\u00fcnchen , Germany.",
+      "firstname": "Stefan",
+      "initials": "S",
+      "lastname": "Stangl"
+    },
+    {
+      "affiliation": "Department of Radiation Oncology, Klinikum rechts der Isar, Technische Universit\\u00e4t M\\u00fcnchen (TUM) , M\\u00fcnchen , Germany.",
+      "firstname": "Hanno M",
+      "initials": "HM",
+      "lastname": "Specht"
+    },
+    {
+      "affiliation": "Department of Radiation Oncology, Klinikum rechts der Isar, Technische Universit\\u00e4t M\\u00fcnchen (TUM) , M\\u00fcnchen , Germany.",
+      "firstname": "Petra",
+      "initials": "P",
+      "lastname": "Mozes"
+    },
+    {
+      "affiliation": "Department of Pathology, Klinikum rechts der Isar, Technische Universit\\u00e4t M\\u00fcnchen (TUM) , M\\u00fcnchen , Germany.",
+      "firstname": "Moritz",
+      "initials": "M",
+      "lastname": "Jesinghaus"
+    },
+    {
+      "affiliation": "Department of Radiation Oncology, Martin Luther University Halle-Wittenberg , Halle (Saale) , Germany.",
+      "firstname": "Dirk",
+      "initials": "D",
+      "lastname": "Vordermark"
+    },
+    {
+      "affiliation": "Department of Radiation Oncology, Klinikum rechts der Isar, Technische Universit\\u00e4t M\\u00fcnchen (TUM) , M\\u00fcnchen , Germany ; Department of Innovative Radiotherapy (iRT), Helmholtz Zentrum M\\u00fcnchen , Oberschlei\\u00dfheim , Germany ; Department of Radiation Sciences (DRS), Helmholtz Zentrum M\\u00fcnchen , Oberschlei\\u00dfheim , Germany.",
+      "firstname": "Stephanie E",
+      "initials": "SE",
+      "lastname": "Combs"
+    },
+    {
+      "affiliation": "Pulmonary Division, 1 Medizinische Klinik, Klinikum rechts der Isar, Technische Universit\\u00e4t M\\u00fcnchen (TUM) , M\\u00fcnchen , Germany.",
+      "firstname": "Friedhelm",
+      "initials": "F",
+      "lastname": "Peltz"
+    },
+    {
+      "affiliation": "Department of Radiation Oncology, Klinikum rechts der Isar, Technische Universit\\u00e4t M\\u00fcnchen (TUM) , M\\u00fcnchen , Germany.",
+      "firstname": "Max P",
+      "initials": "MP",
+      "lastname": "Jung"
+    },
+    {
+      "affiliation": "Department of Radiation Oncology, Klinikum rechts der Isar, Technische Universit\\u00e4t M\\u00fcnchen (TUM) , M\\u00fcnchen , Germany ; Department of Innovative Radiotherapy (iRT), Helmholtz Zentrum M\\u00fcnchen , Oberschlei\\u00dfheim , Germany ; Department of Radiation Sciences (DRS), Helmholtz Zentrum M\\u00fcnchen , Oberschlei\\u00dfheim , Germany.",
+      "firstname": "Gabriele",
+      "initials": "G",
+      "lastname": "Multhoff"
+    }
+  ],
+    "keywords": ["NSCLC/Squamous", "NSCLC/Squamous/Adeno", "Treatment/Immunotherapy"],
+    "link": "doi.org/10.3389/fimmu.2015.00556",
+    "releaseDate": "2015-11-19",
     "resourceType": "Article",
-    "title": "",
+    "title": "Correlation of Hsp70 Serum Levels with Gross Tumor Volume and Composition of Lymphocyte Subpopulations in Patients with Squamous Cell and Adeno Non-Small Cell Lung Cancer.",
     "image": ""
   },
   {
-    "abstract": "",
-    "authors": "",
-    "keywords": [],
-    "link": "",
-    "releaseDate": "",
+    "abstract": "The research and treatment of non-small cell lung cancer (NSCLC) have achieved some important advances in recent years. Nonetheless, the overall survival rates for NSCLC remain low, indicating the importance to effectively develop new therapies and improve current approaches. The understanding of the function of different biomarkers involved in NSCLC progression, survival and response to therapy are important for the development of early detection tools and treatment options. Epidermal growth factor receptor (EGFR) and Kirsten rat sarcoma viral oncogene homolog (K-RAS) are two of the main significant biomarkers for the management of NSCLC. Mutations in these genes were associated with development and response to therapies. For example, the use of small molecule tyrosine kinase (TK) inhibitors and immunotherapy has led to benefits in some, but not all patients with altered EGFR. In contrast, there is still no effective approved drug to act upon patients harbouring K-RAS mutations. In addition, K-RAS mutations have been associated with lack of activity of TK inhibitors. However, promising approaches aimed to inhibit mutant K-RAS are currently under study. Therefore, this review will discuss these approaches and also EGFR therapies, and hopefully, it will draw attention to the need of continued research in the field in order to improve the outcomes in NSCLC patients.",
+    "authors": [
+    {
+      "affiliation": "Research Division, National Institute of Traumatology and Orthopedics, Av. Brasil 500, 20940-070 Rio de Janeiro, Brazil.",
+      "firstname": "Veronica",
+      "initials": "V",
+      "lastname": "Aran"
+    },
+    {
+      "affiliation": "School of Medicine, University of Split, \\u0160oltanska 2, 21000 Split, Croatia.",
+      "firstname": "Jasminka",
+      "initials": "J",
+      "lastname": "Omerovic"
+    }],
+    "keywords": ["Histology/EGFR", "NSCLC", "Treatment"],
+    "link": "doi.org/10.3390/ijms20225701",
+    "releaseDate": "2019-11-20",
     "resourceType": "Article",
-    "title": "",
+    "title": "Current Approaches in NSCLC Targeting K-RAS and EGFR.",
+    "image": ""
+  },
+  {
+    "abstract": "Epidermal growth factor receptor (EGFR) mutations are the second most common oncogenic driver event in non-small cell lung cancer (NSCLC). Classical activating mutations (exon 19 deletions and the L858R point mutation) comprise the vast majority of EGFR mutations and are well defined as strong predictors for good clinical response to EGFR tyrosine kinase inhibitors (EGFRi). However, low frequency mutations including point mutations, deletions, insertions and duplications occur within exons 18-25 of the EGFR gene in NSCLC and are associated with poorer responses to EGFRi. Despite an increased uptake of more sensitive detection methods to identify rare EGFR mutations in patients, our understanding of the biology of these rare EGFR mutations is poor compared to classical mutations. In particular, clinical data focused on these mutations is lacking due to their rarity and challenges in trial recruitment, resulting in an absence of effective treatment strategies for many low frequency EGFR mutations. In this review, we describe the structural and mechanistic features of rare EGFR mutations in NSCLC and discuss the preclinical and clinical evidence for EGFRi response for individual rare EGFR mutations. We also discuss EGFRi sensitivity for complex EGFR mutations, and conclude by offering a perspective on the outstanding questions and future steps required to make advances in the treatment of NSCLC patients that harbour rare EGFR mutations.",
+    "authors": [
+    {
+      "affiliation": "Division of Molecular Pathology, The Institute of Cancer Research, London, SW3 6JB, UK.",
+      "firstname": "Peter T",
+      "initials": "PT",
+      "lastname": "Harrison"
+    },
+    {
+      "affiliation": "Division of Molecular Pathology, The Institute of Cancer Research, London, SW3 6JB, UK.",
+      "firstname": "Simon",
+      "initials": "S",
+      "lastname": "Vyse"
+    },
+    {
+      "affiliation": "Division of Molecular Pathology, The Institute of Cancer Research, London, SW3 6JB, UK. Electronic address: paul.huang@icr.ac.uk.",
+      "firstname": "Paul H",
+      "initials": "PH",
+      "lastname": "Huang"
+    }
+  ],
+    "keywords": ["Histology/EGFR", "NSCLC", "Treatment/Targeted treatment"],
+    "link": "doi.org/10.1016/j.semcancer.2019.09.015",
+    "releaseDate": "2019-09-29",
+    "resourceType": "Article",
+    "title": "Rare epidermal growth factor receptor (EGFR) mutations in non-small cell lung cancer.",
+    "image": ""
+  },
+    {
+    "abstract": "The cancer-cell–killing property of atezolizumab may be enhanced by the blockade of vascular endothelial growth factor–mediated immunosuppression with bevacizumab. This open-label, phase 3 study evaluated atezolizumab plus bevacizumab plus chemotherapy in patients with metastatic nonsquamous non–small-cell lung cancer (NSCLC) who had not previously received chemotherapy.",
+    "authors": [ {
+      "affiliation": "IMpower150 Study Group",
+      "firstname": "Mark",
+      "initials": "A",
+      "lastname": "Socinski"
+    }, {
+      "affiliation": "IMpower150 Study Group",
+      "firstname": "Robert",
+      "initials": "M",
+      "lastname": "Jotee"
+    }, {
+      "affiliation": "IMpower150 Study Group",
+      "firstname": "Frederico",
+      "initials": "Orlandi",
+      "lastname": "Cappuzzo"
+    }, {
+      "affiliation": "IMpower150 Study Group",
+      "firstname": "Daniil",
+      "initials": "",
+      "lastname": "Stroyakovskiy"
+    }],
+    "keywords": ["NSCLC/Non-squamous", "Treatment/Immunotherapy"],
+    "link": "doi.org/10.1056/NEJMoa1716948",
+    "releaseDate": "2018-06-04",
+    "resourceType": "Article",
+    "title": "Atezolizumab for First-Line Treatment of Metastatic Nonsquamous NSCLC",
     "image": ""
   },
   {
     "abstract": "Prasad S. Adusumilli, MD, of Memorial Sloan Kettering Cancer Center, discusses phase I/II research he is conducting on CAR T cells delivered intrapleurally in patients with mesothelioma. The treatment is targeting mesothelin, a cancer cell-surface antigen overexpressed in many solid tumors and associated with aggressive disease.",
-    "authors": "",
-    "keywords": ["Mesothelium"],
+    "authors": [{
+      "affiliation": "Memorial Sloan Kettering Cancer Center",
+      "firstname": "Prasad",
+      "initials": "PSA",
+      "lastname": "Adusumilli"
+    }],
+    "keywords": ["Thoracic tumour/Mesothelium", "Treatment/Immunotherapy"],
     "link": "https://ascopost.com/videos/iaslc-2021-world-conference-on-lung-cancer/prasad-adusumilli-on-car-t-cell-therapy-for-mesothelioma/",
-    "releaseDate": "Sep 14, 2021",
+    "releaseDate": "2021-09-14",
     "resourceType": "Video",
     "title": "Prasad S. Adusumilli, MD, on CAR T-Cell Therapy for Mesothelioma",
-    "image": ""
+    "image": "prasad_video.jpg"
   },
   {
     "abstract": "Featuring a discussion on advances in the treatment of patients with NSCLC harboring an EGFR exon 20 insertion mutations with Dr Gregory Riely, moderated by Dr Neil Love.",
-    "authors": "",
-    "keywords": ["NSCLC", "EGFR"],
+    "authors": [{
+      "affiliation": "Lung Cancer Update",
+      "firstname": "Gregory",
+      "initials": "GR",
+      "lastname": "Riley"
+    },{
+      "affiliation": "Lung Cancer Update",
+      "firstname": "Neil",
+      "initials": "NL",
+      "lastname": "Love"
+    }],
+    "keywords": ["NSCLC", "Histology/EGFR"],
     "link": "https://podcasts.apple.com/us/podcast/oncology-today-with-dr-neil-love-nsclc-with-egfr-exon/id160270573?i=1000545296478",
-    "releaseDate": "Dec 17, 2021",
+    "releaseDate": "2021-12-17",
     "resourceType": "Podcast",
     "title": "Oncology Today with Dr Neil Love: NSCLC with EGFR Exon 20 Insertion Mutations ",
-    "image": ""
+    "image": "neil_podcast.jpg"
   }
 ]

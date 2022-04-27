@@ -17,12 +17,13 @@ class PubMedIO:
 
 # Loads PubMed articles using PubMed API
 class PubOnlineLoader(PubMedIO):
-    def __init__(self, pubmed):
+    def __init__(self, pubmed, query):
         self.pubmed = pubmed
+        self.query = query
 
     def get_results(self) -> List[article.PubMedArticle]:
         # https://pubmed.ncbi.nlm.nih.gov/advanced/ Help with query format.
-        results_itr = self.pubmed.query("(Free full text[Filter])AND (lung cancer[keyword])", max_results=5000)
+        results_itr = self.pubmed.query(self.query, max_results=5000)
         return [result for result in results_itr if hasattr(result, "keywords") and len(result.keywords) > 0]
 
 # Method to load PubMedArticle
@@ -54,10 +55,12 @@ def pub_main():
     pubmed = PubMed(tool="POC", email="s184195@student.dtu.dk")
     print("Downloading PubMed articles")
 
-    publoader = PubOnlineLoader(pubmed)
+    #query = "(Free full text[Filter])AND (lung cancer[keyword])"
+    query = "10 1056 nejmoa1716948[All Fields]"
+    publoader = PubOnlineLoader(pubmed, query)
 
     results = publoader.get_results()
-    publoader.dump_results(results, "articles.json")
+    publoader.dump_results(results, "articles_prettyfied.json")
 
 
 if __name__ == '__main__':
