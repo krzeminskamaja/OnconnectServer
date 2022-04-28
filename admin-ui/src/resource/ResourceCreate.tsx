@@ -8,6 +8,7 @@ import {
   ReferenceArrayInput,
   SelectArrayInput,
   DateTimeInput,
+  SelectInput,
 } from "react-admin";
 
 import { ResourceHistoryTitle } from "../resourceHistory/ResourceHistoryTitle";
@@ -28,6 +29,7 @@ export const ResourceCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ResourceHistoryTitle} />
         </ReferenceArrayInput>
+        <TextInput label="ImageURL" source="imageURL" />
         <ReferenceArrayInput
           source="keywordID"
           reference="Keyword"
@@ -37,7 +39,18 @@ export const ResourceCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={KeywordTitle} />
         </ReferenceArrayInput>
         <TextInput label="Link" source="link" />
-        <DateTimeInput label="Relase Date" source="relaseDate" />
+        <DateTimeInput label="ReleaseDate" source="relaseDate" />
+        <SelectInput
+          source="resourceType"
+          label="ResourceType"
+          choices={[
+            { label: "Article", value: "Article" },
+            { label: "Podcast", value: "Podcast" },
+            { label: "Video", value: "Video" },
+          ]}
+          optionText="label"
+          optionValue="value"
+        />
         <ReferenceArrayInput
           source="suggestionID"
           reference="ResourceSuggestion"

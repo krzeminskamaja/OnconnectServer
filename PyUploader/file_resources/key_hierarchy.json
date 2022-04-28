@@ -1,0 +1,37 @@
+{
+	"Best Supportive Care": {
+		"Pain": {},
+		"Physiotherapy": {},
+		"Dietist": {}
+	},
+	"Pallative Care": {},
+	"NSCLC": {
+		"Squamous": {
+			"Adeno": {}
+		},
+		"Non-squamous": {
+			"Plano cellular": {}
+		}
+	},
+	"SCLC": {},
+	"Histology": {
+		"EGFR": {},
+		"ALK": {},
+		"ROS": {},
+		"PIK3CA": {},
+		"PD-L1": {}
+	},
+	"Thoracic tumour": {
+		"NSCLC": {},
+		"SCLC": {},
+		"Mesothelium": {}
+	},
+	"Neuroendocrine": {},
+	"Treatment": {
+		"Immunotherapy": {},
+		"Chemotherapy": {},
+		"Radiation": {},
+		"Concurrent radiation chemotherapy": {},
+		"Targeted treatment": {}
+	}
+}

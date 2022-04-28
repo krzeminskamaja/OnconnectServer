@@ -52,6 +52,15 @@ class KeywordOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  parentIDId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   updatedAt?: SortOrder;
 }
 

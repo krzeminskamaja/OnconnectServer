@@ -13,11 +13,13 @@ export const ResourceList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <TextField label="Abstract" source="abstract" />
-        <TextField label="Author(s)" source="authorS" />
+        <TextField label="Author(s)" source="authors" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <TextField label="ImageURL" source="imageURL" />
         <TextField label="Link" source="link" />
-        <TextField label="Relase Date" source="relaseDate" />
+        <TextField label="ReleaseDate" source="relaseDate" />
+        <TextField label="ResourceType" source="resourceType" />
         <TextField label="Title" source="title" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

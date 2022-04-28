@@ -508,6 +508,13 @@ export class UserControllerBase {
         createdAt: true,
         id: true,
         name: true,
+
+        parentID: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -683,6 +690,7 @@ export class UserControllerBase {
       select: {
         createdAt: true,
         id: true,
+        priority: true,
 
         ResourceID: {
           select: {

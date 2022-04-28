@@ -34,6 +34,23 @@ input DateTimeNullableFilter {
   notIn: [DateTime!]
 }
 
+enum EnumResourceResourceType {
+  Article
+  Podcast
+  Video
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
 """
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -45,9 +62,11 @@ input JsonFilter {
 }
 
 type Keyword {
+  childId(orderBy: [KeywordOrderByInput!], skip: Float, take: Float, where: KeywordWhereInput): [Keyword!]!
   createdAt: DateTime!
   id: String!
   name: String!
+  parentId: Keyword
   resourceId(orderBy: [ResourceOrderByInput!], skip: Float, take: Float, where: ResourceWhereInput): [Resource!]!
   synonymId(orderBy: [SynonymOrderByInput!], skip: Float, take: Float, where: SynonymWhereInput): [Synonym!]!
   updatedAt: DateTime!
@@ -55,10 +74,16 @@ type Keyword {
 }
 
 input KeywordCreateInput {
+  childID: KeywordCreateNestedManyWithoutKeywordsInput
   name: String!
+  parentID: KeywordWhereUniqueInput
   resourceID: ResourceCreateNestedManyWithoutKeywordsInput
   synonymID: SynonymCreateNestedManyWithoutKeywordsInput
   userID: UserCreateNestedManyWithoutKeywordsInput
+}
+
+input KeywordCreateNestedManyWithoutKeywordsInput {
+  connect: [KeywordWhereUniqueInput!]
 }
 
 input KeywordCreateNestedManyWithoutResourcesInput {
@@ -79,14 +104,23 @@ input KeywordOrderByInput {
   createdAt: SortOrder
   id: SortOrder
   name: SortOrder
+  parentIDId: SortOrder
   updatedAt: SortOrder
 }
 
 input KeywordUpdateInput {
+  childID: KeywordUpdateManyWithoutKeywordsInput
   name: String
+  parentID: KeywordWhereUniqueInput
   resourceID: ResourceUpdateManyWithoutKeywordsInput
   synonymID: SynonymUpdateManyWithoutKeywordsInput
   userID: UserUpdateManyWithoutKeywordsInput
+}
+
+input KeywordUpdateManyWithoutKeywordsInput {
+  connect: [KeywordWhereUniqueInput!]
+  disconnect: [KeywordWhereUniqueInput!]
+  set: [KeywordWhereUniqueInput!]
 }
 
 input KeywordUpdateManyWithoutResourcesInput {
@@ -102,8 +136,10 @@ input KeywordUpdateManyWithoutUsersInput {
 }
 
 input KeywordWhereInput {
+  childID: KeywordListRelationFilter
   id: StringFilter
   name: StringFilter
+  parentID: KeywordWhereUniqueInput
   resourceID: ResourceListRelationFilter
   synonymID: SynonymListRelationFilter
   userID: UserListRelationFilter
@@ -114,7 +150,7 @@ input KeywordWhereUniqueInput {
 }
 
 type MetaQueryPayload {
-  count: String!
+  count: Float!
 }
 
 type Mutation {
@@ -168,13 +204,15 @@ enum QueryMode {
 
 type Resource {
   abstract: String!
-  authorS: JSONObject!
+  authors: JSONObject!
   createdAt: DateTime!
   historyId(orderBy: [ResourceHistoryOrderByInput!], skip: Float, take: Float, where: ResourceHistoryWhereInput): [ResourceHistory!]!
   id: String!
+  imageURL: String
   keywordId(orderBy: [KeywordOrderByInput!], skip: Float, take: Float, where: KeywordWhereInput): [Keyword!]!
   link: String!
   relaseDate: DateTime!
+  resourceType: EnumResourceResourceType
   suggestionId(orderBy: [ResourceSuggestionOrderByInput!], skip: Float, take: Float, where: ResourceSuggestionWhereInput): [ResourceSuggestion!]!
   title: String!
   updatedAt: DateTime!
@@ -182,11 +220,13 @@ type Resource {
 
 input ResourceCreateInput {
   abstract: String!
-  authorS: JSONObject!
+  authors: JSONObject!
   historyID: ResourceHistoryCreateNestedManyWithoutResourcesInput
+  imageURL: String
   keywordID: KeywordCreateNestedManyWithoutResourcesInput
   link: String!
   relaseDate: DateTime!
+  resourceType: EnumResourceResourceType!
   suggestionID: ResourceSuggestionCreateNestedManyWithoutResourcesInput
   title: String!
 }
@@ -207,7 +247,7 @@ type ResourceHistory {
 input ResourceHistoryCreateInput {
   readDate: DateTime
   sourceID: ResourceWhereUniqueInput!
-  userID: UserWhereUniqueInput
+  userID: UserWhereUniqueInput!
 }
 
 input ResourceHistoryCreateNestedManyWithoutResourcesInput {
@@ -270,11 +310,13 @@ input ResourceListRelationFilter {
 
 input ResourceOrderByInput {
   abstract: SortOrder
-  authorS: SortOrder
+  authors: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  imageURL: SortOrder
   link: SortOrder
   relaseDate: SortOrder
+  resourceType: SortOrder
   title: SortOrder
   updatedAt: SortOrder
 }
@@ -282,13 +324,15 @@ input ResourceOrderByInput {
 type ResourceSuggestion {
   createdAt: DateTime!
   id: String!
+  priority: Float!
   resourceId: Resource
   updatedAt: DateTime!
   userId: User
 }
 
 input ResourceSuggestionCreateInput {
-  ResourceID: ResourceWhereUniqueInput
+  ResourceID: ResourceWhereUniqueInput!
+  priority: Float!
   userID: UserWhereUniqueInput!
 }
 
@@ -310,12 +354,14 @@ input ResourceSuggestionOrderByInput {
   ResourceIDId: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  priority: SortOrder
   updatedAt: SortOrder
   userIDId: SortOrder
 }
 
 input ResourceSuggestionUpdateInput {
   ResourceID: ResourceWhereUniqueInput
+  priority: Float
   userID: UserWhereUniqueInput
 }
 
@@ -334,6 +380,7 @@ input ResourceSuggestionUpdateManyWithoutUsersInput {
 input ResourceSuggestionWhereInput {
   ResourceID: ResourceWhereUniqueInput
   id: StringFilter
+  priority: IntFilter
   userID: UserWhereUniqueInput
 }
 
@@ -343,11 +390,13 @@ input ResourceSuggestionWhereUniqueInput {
 
 input ResourceUpdateInput {
   abstract: String
-  authorS: JSONObject
+  authors: JSONObject
   historyID: ResourceHistoryUpdateManyWithoutResourcesInput
+  imageURL: String
   keywordID: KeywordUpdateManyWithoutResourcesInput
   link: String
   relaseDate: DateTime
+  resourceType: EnumResourceResourceType
   suggestionID: ResourceSuggestionUpdateManyWithoutResourcesInput
   title: String
 }
@@ -360,12 +409,14 @@ input ResourceUpdateManyWithoutKeywordsInput {
 
 input ResourceWhereInput {
   abstract: StringFilter
-  authorS: JsonFilter
+  authors: JsonFilter
   historyID: ResourceHistoryListRelationFilter
   id: StringFilter
+  imageURL: StringNullableFilter
   keywordID: KeywordListRelationFilter
   link: StringFilter
   relaseDate: DateTimeFilter
+  resourceType: EnumResourceResourceType
   suggestionID: ResourceSuggestionListRelationFilter
   title: StringFilter
 }
@@ -413,11 +464,13 @@ type Synonym {
   createdAt: DateTime!
   id: String!
   keywordId: Keyword
+  name: String!
   updatedAt: DateTime!
 }
 
 input SynonymCreateInput {
-  keywordId: KeywordWhereUniqueInput
+  keywordId: KeywordWhereUniqueInput!
+  name: String!
 }
 
 input SynonymCreateNestedManyWithoutKeywordsInput {
@@ -434,11 +487,13 @@ input SynonymOrderByInput {
   createdAt: SortOrder
   id: SortOrder
   keywordIdId: SortOrder
+  name: SortOrder
   updatedAt: SortOrder
 }
 
 input SynonymUpdateInput {
   keywordId: KeywordWhereUniqueInput
+  name: String
 }
 
 input SynonymUpdateManyWithoutKeywordsInput {
@@ -450,6 +505,7 @@ input SynonymUpdateManyWithoutKeywordsInput {
 input SynonymWhereInput {
   id: StringFilter
   keywordId: KeywordWhereUniqueInput
+  name: StringFilter
 }
 
 input SynonymWhereUniqueInput {
